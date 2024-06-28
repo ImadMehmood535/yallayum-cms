@@ -19,7 +19,7 @@ const Indexdashboard = () => {
 
   const getData = async () => {
     try {
-      const response = await API.SubscriptionUser();
+      const response = await API.getStatistics();
       setDashboardData(response?.data?.data);
       setLoading(false);
     } catch (error) {

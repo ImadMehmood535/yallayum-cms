@@ -14,7 +14,7 @@ const Overview = ({ dashboardData }) => {
               Orders
             </p>
             <p className=" text-black group-hover:text-white text-lg font-bold">
-              {dashboardData?.totalUsers}
+              {dashboardData?.totalOrders}
             </p>
           </div>
           <div className="w-3/12 flex justify-end">
@@ -33,7 +33,7 @@ const Overview = ({ dashboardData }) => {
               Make Your Mix
             </p>
             <p className=" text-black group-hover:text-white text-lg font-bold">
-              {dashboardData?.subscribed}
+              {dashboardData?.totalCustomOrders}
             </p>
           </div>
           <div className="w-3/12 flex justify-end">
@@ -43,10 +43,10 @@ const Overview = ({ dashboardData }) => {
         <div className="broder rounded-lg border group  border-[#F5F5F5] hover:bg-themeBtn-0 hover:border-themeBtn-0 duration-100  flex justify-between pt-4 pb-10 px-5">
           <div className="w-3/4">
             <p className="capitalize group-hover:text-white text-[#8F8F8F] text-sm mb-4">
-             Members
+              Members
             </p>
             <p className=" text-black group-hover:text-white text-lg font-bold">
-              {dashboardData?.unSubscribed}
+              {dashboardData?.totalUsers}
             </p>
           </div>
           <div className="w-3/12 flex justify-end">
@@ -59,10 +59,7 @@ const Overview = ({ dashboardData }) => {
               Revenue
             </p>
             <p className=" text-black group-hover:text-white text-lg font-bold">
-              ${" "}
-              {dashboardData?.revenue?._sum?.totalPrice
-                ? parseInt(dashboardData?.revenue?._sum?.totalPrice)
-                : 0}
+              $ {dashboardData?.revenue}
             </p>
           </div>
           <div className="w-3/12 flex justify-end">

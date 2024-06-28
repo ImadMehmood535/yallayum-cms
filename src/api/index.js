@@ -30,7 +30,7 @@ API.changePassword = (data) => {
   return API.patch("admin/change-password", data);
 };
 
-API.updateProfile = ( data) => {
+API.updateProfile = (data) => {
   return API.patch(`admin/`, data);
 };
 
@@ -226,9 +226,7 @@ API.uploadImage = (data) => {
 
 //statistics
 
-API.getStatistics = (startDate, endDate, choice) => {
-  return API.get(
-    `/dashboard?startDate=${startDate}&endDate=${endDate}&choice=${choice}`
-  );
+API.getStatistics = () => {
+  return API.get("/statistics");
 };
 export { API };
