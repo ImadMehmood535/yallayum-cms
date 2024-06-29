@@ -39,6 +39,8 @@ import EditSubscribedMembers from "../pages/MembersManagement/EditSubscribedMemb
 import BlogsComponent from "../pages/SiteManagement/blogs/BlogsComponent";
 import AddBlogs from "../pages/SiteManagement/blogs/AddBlogs";
 import EditBlogs from "../pages/SiteManagement/blogs/EditBlogs";
+import Products from "../pages/ecommerce/products/Products";
+import AddProduct from "../pages/ecommerce/products/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,24 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "store",
+        children: [
+          {
+            path: "products",
+            children: [
+              {
+                path: "",
+                element: <Products />,
+              },
+              {
+                path: "add",
+                element: <AddProduct />,
+              },
+            ],
+          },
+        ],
+      },
       {
         path: "",
         element: <Indexdashboard />,

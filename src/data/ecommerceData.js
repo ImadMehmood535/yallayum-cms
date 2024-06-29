@@ -17,9 +17,7 @@ const ecommerceData = [
 
     subCategories: [
       {
-        icon: (
-          <CgFileDocument className="" />
-        ),
+        icon: <CgFileDocument className="" />,
 
         name: "Categories",
         link: "store/categories",
@@ -27,7 +25,7 @@ const ecommerceData = [
       {
         icon: <TbListDetails className="" />,
         name: "Products ",
-        link: "store/update",
+        link: "store/products",
       },
       {
         icon: <MdCoffeeMaker className="" />,
@@ -39,7 +37,6 @@ const ecommerceData = [
         name: "Reviews ",
         link: "store/reviews",
       },
- 
     ],
   },
   {
@@ -51,9 +48,7 @@ const ecommerceData = [
 
     subCategories: [
       {
-        icon: (
-          <CgFileDocument className="" />
-        ),
+        icon: <CgFileDocument className="" />,
 
         name: "General Orders",
         link: "store/details",
@@ -63,7 +58,6 @@ const ecommerceData = [
         name: "Custom Orders ",
         link: "store/update",
       },
- 
     ],
   },
 ];
