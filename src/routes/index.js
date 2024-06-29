@@ -7,11 +7,12 @@ import Indexdashboard from "../pages/dashboarddefault/Indexdashboard";
 import ExamComponent from "../pages/ExamsManagement/exam/ExamComponent";
 import ExamCategories from "../pages/ExamsManagement/Categories/ExamCategories";
 import AddExam from "../pages/ExamsManagement/exam/AddExam";
-import AddCategories from "../pages/ExamsManagement/Categories/AddCategories";
+import AddCategories from "../pages/ecommerce/Categories/AddCategories";
+import EditCategory from "../pages/ecommerce/Categories/EditCategory";
 import PromoCode from "../pages/ExamsManagement/PromoCode/PromoCode";
 import AddPromoCode from "../pages/ExamsManagement/PromoCode/AddPromoCode";
 import EditExam from "../pages/ExamsManagement/exam/EditExam";
-import EditCategory from "../pages/ExamsManagement/Categories/EditCategory";
+// import EditCategory from "../pages/ExamsManagement/Categories/EditCategory";
 import SubscriptionComponent from "../pages/SubscriptionManagement/SubscriptionPackages/SubscriptionComponent";
 import AddSubscription from "../pages/SubscriptionManagement/SubscriptionPackages/AddSubscription";
 import EditSubscription from "../pages/SubscriptionManagement/SubscriptionPackages/EditSubscription";
@@ -41,6 +42,7 @@ import AddBlogs from "../pages/SiteManagement/blogs/AddBlogs";
 import EditBlogs from "../pages/SiteManagement/blogs/EditBlogs";
 import Products from "../pages/ecommerce/products/Products";
 import AddProduct from "../pages/ecommerce/products/AddProduct";
+import Categories from "../pages/ecommerce/Categories/Categories";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +86,28 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "store",
+        children: [
+          {
+            path: "categories",
+            children: [
+              {
+                path: "",
+                element: <Categories />,
+              },
+              {
+                path: "add-category",
+                element: <AddCategories />,
+              },
+              {
+                path: "edit-category",
+                element: <EditCategory/>,
+              },
+            ],
+          },
+        ],
+      },
+      {
         path: "",
         element: <Indexdashboard />,
       },
@@ -107,10 +131,10 @@ const router = createBrowserRouter([
         path: "exam/exam-categories/add-categories",
         element: <AddCategories />,
       },
-      {
-        path: "exam/exam-categories/edit-category",
-        element: <EditCategory />,
-      },
+      // {
+      //   path: "exam/exam-categories/edit-category",
+      //   element: <EditCategory />,
+      // },
       {
         path: "exam/promo-code",
         element: <PromoCode />,

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { errorToast, successToast } from "../../../hooks/useToast";
-import { AddExamCategory } from "../../../validations/categories";
+import { AddCategory } from "../../../validations/productcategory";
 
 const AddCategories = () => {
   const [isInvalid, setIsInvalid] = useState(false);
@@ -18,22 +18,22 @@ const AddCategories = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(AddExamCategory) });
+  } = useForm({ resolver: yupResolver(AddCategory) });
 
   const [allexams, setAllExams] = useState([]);
 
-  const getData = async () => {
-    try {
-      const response = await API.getAllExams();
-      setAllExams(response?.data?.data);
-    } catch (error) {
-      errorToast(error, "Cannot fetch exams");
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const response = await API.getAllExams();
+  //     setAllExams(response?.data?.data);
+  //   } catch (error) {
+  //     errorToast(error, "Cannot fetch exams");
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -60,7 +60,7 @@ const AddCategories = () => {
       />
       <form className="grid grid-col-1 gap-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
-          <div className="grid grid-col-1 sm:grid-cols-3 gap-4  ">
+          <div className="grid grid-col-1 sm:grid-cols-2 gap-4  ">
             <InputField
               label="Category Name"
               type="text"
@@ -72,18 +72,7 @@ const AddCategories = () => {
               name="name"
               register={register}
             />
-            <InputField
-              label="Exam Name"
-              type="select"
-              options={allexams}
-              isInvalid={isInvalid}
-              isRequired={true}
-              placeholder="Exam Name"
-              errortext="Exam Name Is Required"
-              errors={errors}
-              name="examId"
-              register={register}
-            />
+
             <InputField
               label="Status"
               type="select"
@@ -93,7 +82,7 @@ const AddCategories = () => {
               isRequired={true}
               errortext="Status Is Required"
               errors={errors}
-              name="isLive"
+              name="customProduct"
               register={register}
             />
           </div>

@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import Header from "../../../components/dashboard/Header";
 import ResultFilterBar from "../../../components/general/ResultFilterBar";
 import Tableform from "../../../components/general/Tableform";
-import { examcategoriescolumn } from "../../../data/examcategoriescolumn";
-import { examcategoriesdata } from "../../../data/examcategoriesdata";
-import { examtabledata } from "../../../data/examtabledata";
 import { API } from "../../../api";
 import { errorToast } from "../../../hooks/useToast";
 import Loader from "../../../components/general/Loader";
+import { categoriescolumn } from "../../../data/categoriescolumn ";
 
-const ExamCategories = () => {
+const Categories = () => {
   const [itemPerPage, setitemPerPage] = useState(10);
   const [filterdata, setfilterdata] = useState();
   const [searchFilter, setSearchFilter] = useState(null);
@@ -31,6 +29,7 @@ const ExamCategories = () => {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div className="page-area mt-10">
       <Header
@@ -38,7 +37,7 @@ const ExamCategories = () => {
         previous={"Dashboard"}
         currentpage={"Categories"}
         btntext={"Add Categories"}
-        btnlink={"/dashboard/exam/exam-categories/add-categories"}
+        btnlink={"/dashboard/store/categories/add-category"}
       />
       <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
         <ResultFilterBar
@@ -54,7 +53,7 @@ const ExamCategories = () => {
             {allcategories && (
               <Tableform
                 filterdata={allcategories}
-                tablecolumns={examcategoriescolumn}
+                tablecolumns={categoriescolumn}
                 itemPerPage={itemPerPage}
                 searchFilter={searchFilter}
                 pagename={"edit-category"}
@@ -68,4 +67,4 @@ const ExamCategories = () => {
   );
 };
 
-export default ExamCategories;
+export default Categories;
