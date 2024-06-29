@@ -7,8 +7,9 @@ import { RiHomeLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/slices/userSlice";
 import { deleteCookie } from "../../hooks/useCookies";
-import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
+import { HiOutlineBuildingStorefront } from "react-icons/hi2";
+
 
 const FirstSidebar = ({ setChoice, choice }) => {
   const dispatch = useDispatch();
@@ -52,15 +53,15 @@ const FirstSidebar = ({ setChoice, choice }) => {
             </Tooltip>
             <Tooltip
               placement="right-start"
-              content="Account setting"
+              content="Store"
               className="bg-themeBtn-0 text-white"
             >
               <li onClick={() => setChoice(3)}>
                 <Link to="#">
-                  <MdOutlineLocalGroceryStore 
+                  <HiOutlineBuildingStorefront   
                     className={`w-full max-w-[80px] h-[40px]  text-[2.50rem] ${
                       choice === 3
-                        ? "bg-themeBtn-0 text-white hover:text-themePrimary-0 rounded-lg "
+                        ? "bg-themeBtn-0 text-white hover:white rounded-lg "
                         : ""
                     }   py-1 px-1`}
                   />
@@ -77,7 +78,7 @@ const FirstSidebar = ({ setChoice, choice }) => {
                   <FaRegUser 
                     className={`w-full font-bold max-w-[80px] h-[40px]  text-[2.50rem] ${
                       choice === 2
-                        ? "bg-themeBtn-0 text-white hover:text-themePrimary-0 rounded-lg "
+                        ? "bg-themeBtn-0 text-white hover:hover:white rounded-lg "
                         : ""
                     }   py-1 px-1`}
                   />

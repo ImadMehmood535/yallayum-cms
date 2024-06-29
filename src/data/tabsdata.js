@@ -26,12 +26,13 @@ import { LiaBlogSolid } from "react-icons/lia";
 import { VscFeedback } from "react-icons/vsc";
 import { GoReport } from "react-icons/go";
 import { SlEnvolopeLetter } from "react-icons/sl";
+import { CgWebsite } from "react-icons/cg";
 
 const tabsdata = [
   {
     id: 1,
     no: 1,
-    icon: <img src={examManagement} alt="examManagement" />,
+    icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
     name: "Exams Management",
     link: "/exam",
 
@@ -66,7 +67,7 @@ const tabsdata = [
   {
     id: 2,
     no: 2,
-    icon: <img src={memberManagement} alt="examManagement" />,
+    icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
     name: "Members Management",
 
     subCategories: [
@@ -90,7 +91,7 @@ const tabsdata = [
   {
     id: 3,
     no: 3,
-    icon: <img src={subscriptionManagement} alt="examManagement" />,
+    icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
     name: "Subscription Management",
     link: "/",
 
@@ -110,7 +111,7 @@ const tabsdata = [
   {
     id: 4,
     no: 4,
-    icon: <img src={siteManagement} alt="examManagement" />,
+    icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
     name: "Site Management",
     link: "/",
 
