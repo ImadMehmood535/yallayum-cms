@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../../components/general/InputField";
- 
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ButtonComponent from "../../components/general/ButtonComponent";
 import { API } from "../../api";
@@ -11,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validations/login";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice";
+import { Logo } from "../../assets";
 
 const LogIn = () => {
   const [isInvalid, setIsInvalid] = useState(false);
@@ -44,14 +44,14 @@ const LogIn = () => {
     <div className="login-page h-[100vh] w-full flex  justify-center items-center  ">
       <div className="max-w-[650px] rounded-[25px] bg-themeSecondry-0 h-fit mx-auto py-20 px-2.5 sm:px-0  w-full ">
         <div className="w-[360px] max-w-[750px]   mx-auto ">
-          {/* <div className="logo-area flex flex-wrap justify-center mb-8">
-              <Image src={Logo} alt={Logo} className="w-full" />
-            </div> */}
+          <div className="logo-area flex flex-wrap justify-center mb-8">
+            <img src={Logo} alt={Logo} className="w-full" />
+          </div>
 
           <div className="form-area">
-            <h1 className="text-center text-3xl sm:text-4xl font-normal mb-7">
+            {/* <h1 className="text-center text-3xl sm:text-4xl font-normal mb-7">
               Yalla Yum Admin
-            </h1>
+            </h1> */}
             <form
               className="grid grid-col-1 gap-6"
               onSubmit={handleSubmit(onSubmit)}

@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         themePrimary: ["#164A8C"],
         themeSecondry: ["#F9F1F8"],
-        themeBtn: ["#d979cd"],
+        themeBtn: ["#FC4242"],
         themeGray: ["#000000"],
       },
     },
