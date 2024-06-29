@@ -9,13 +9,11 @@ const ecommerceData = [
     no: 1,
     icon: <CgProfile className="text-themeBtn-0 rounded-none text-2xl" />,
     name: "Store",
-    link: "/profile",
+    link: "/store",
 
     subCategories: [
       {
-        icon: (
-          <CgFileDocument className="" />
-        ),
+        icon: <CgFileDocument className="" />,
 
         name: "Categories",
         link: "profile/details",
@@ -23,7 +21,7 @@ const ecommerceData = [
       {
         icon: <TbListDetails className="" />,
         name: "Products ",
-        link: "profile/update",
+        link: "store/products",
       },
       {
         icon: <TbListDetails className="" />,
@@ -35,7 +33,6 @@ const ecommerceData = [
         name: "Reviews ",
         link: "profile/reviews",
       },
- 
     ],
   },
   {
@@ -47,9 +44,7 @@ const ecommerceData = [
 
     subCategories: [
       {
-        icon: (
-          <CgFileDocument className="" />
-        ),
+        icon: <CgFileDocument className="" />,
 
         name: "General Orders",
         link: "profile/details",
@@ -59,7 +54,6 @@ const ecommerceData = [
         name: "Custom Orders ",
         link: "profile/update",
       },
- 
     ],
   },
 ];

@@ -6,13 +6,15 @@ import CustomUploadAdapterPlugin from "../../utils/MyCustomUploadAdapter";
 const Editor = ({ name, errors, label, register, setValue, defaultValue }) => {
   return (
     <div className="w-[99%] max-w-[100%] break-words">
-      <p>{label}</p>
+      <p className="text-[#8F8F8F] text-sm font-medium px-2 capitalize relative z-0 mb-3">
+        {label}
+      </p>
       <CKEditor
         activeClass="p10"
         editor={ClassicEditor}
         data={defaultValue}
         config={{
-          extraPlugins: [CustomUploadAdapterPlugin],  // Add the custom upload adapter plugin
+          extraPlugins: [CustomUploadAdapterPlugin], // Add the custom upload adapter plugin
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
