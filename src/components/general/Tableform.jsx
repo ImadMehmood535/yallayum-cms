@@ -103,6 +103,7 @@ const Tableform = ({
                     {datacolumn?.key !== "actions" ? (
                       datacolumn?.key === "isLive" ||
                       datacolumn?.key === "isTrial" ||
+                      datacolumn?.key === "isApproved" ||
                       datacolumn?.key === "customProduct" ||
                       datacolumn?.key === "subscription" ? (
                         item[datacolumn?.key] ? (
@@ -111,7 +112,7 @@ const Tableform = ({
                             isDisabled
                             className="bg-transparent text-[#3FD639] border-[#3FD639] !opacity-100"
                           >
-                            Active
+                            Approved
                           </Button>
                         ) : (
                           <Button
@@ -119,7 +120,7 @@ const Tableform = ({
                             isDisabled
                             className="bg-transparent text-[#FF3A3A] border-[#FF3A3A] !opacity-100"
                           >
-                            Inactive
+                            Not  Approved
                           </Button>
                         )
                       ) : datacolumn?.key === "isBlocked" ? (

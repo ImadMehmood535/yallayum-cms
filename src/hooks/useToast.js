@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export const successToast = (response) => {
-  toast(response || "hello", {
+  toast(response || "Done", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,

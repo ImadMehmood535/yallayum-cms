@@ -21,6 +21,7 @@ const InputField = ({
   errors,
   value,
   emailTrue = false,
+  text = ["active", "inactive"],
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => {
@@ -68,8 +69,8 @@ const InputField = ({
                     : item.name
                     ? item.name
                     : item
-                    ? "active"
-                    : "inactive"}
+                    ? text[0]
+                    : text[1]}
                 </SelectItem>
               ))}
             </Select>

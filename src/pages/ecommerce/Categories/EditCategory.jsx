@@ -40,10 +40,9 @@ const EditCategory = () => {
     }
   );
 
- 
   const onSubmit = async (formData) => {
     setLoading(true);
-     try {
+    try {
       let response;
       if (image) {
         const formData = new FormData();

@@ -229,10 +229,22 @@ API.getSingleProduct = (id) => {
   return API.get(`/product/id/${id}`);
 };
 
-API.updateProduct = (id , data) => {
+API.updateProduct = (id, data) => {
   return API.patch(`/product/${id}`, data);
 };
 
+// productReviews
+API.getAllProductReviews = () => {
+  return API.get("productReview");
+};
+
+API.getSingleReview = (id) => {
+  return API.get(`/productReview/single/${id}`);
+};
+
+API.updateProductReview = (id, data) => {
+  return API.patch(`productReview/${id}`, data);
+};
 //newsletter
 API.getAllNewsletter = () => {
   return API.get("/newsletter");

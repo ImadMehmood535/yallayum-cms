@@ -31,6 +31,8 @@ import EditProducts from "../pages/ecommerce/products/EditProducts";
 import Categories from "../pages/ecommerce/Categories/Categories";
 import AddCategories from "../pages/ecommerce/Categories/AddCategories";
 import EditCategory from "../pages/ecommerce/Categories/EditCategory";
+import AllReviews from "../pages/ecommerce/reviews/AllReviews";
+import EditReviews from "../pages/ecommerce/reviews/EditReviews";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +74,20 @@ const router = createBrowserRouter([
               {
                 path: "edit",
                 element: <EditProducts />,
+              },
+            ],
+          },
+
+          {
+            path: "reviews",
+            children: [
+              {
+                path: "",
+                element: <AllReviews />,
+              },
+              {
+                path: "edit",
+                element: <EditReviews />,
               },
             ],
           },
