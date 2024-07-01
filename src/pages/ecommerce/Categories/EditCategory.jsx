@@ -8,48 +8,55 @@ import ButtonComponent from "../../../components/general/ButtonComponent";
 import { API } from "../../../api";
 import { errorToast, successToast } from "../../../hooks/useToast";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Category } from "../../../validations/productcategory";
+import {
+  AddCategory,
+  Category,
+  editCategory,
+} from "../../../validations/productcategory";
+import GeneralImageUpload from "../../../components/general/GeneralImageUpload";
 
 const EditCategory = () => {
   const [loading, setLoading] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const navigate = useNavigate();
+
   let query = useQuery();
-  let id = Number(query.get("id"));
+  let id = query.get("id");
   let categoryData = JSON.parse(query.get("object"));
   console.log(categoryData);
+  const [image, setImage] = useState(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm(
-    { resolver: yupResolver(Category) },
+    { resolver: yupResolver(editCategory) },
     {
       defaultValues: {
         name: categoryData?.name,
-        isLive: categoryData?.isLive,
+        customProduct: categoryData?.customProduct,
+        imageUrl: categoryData?.imageUrl,
       },
     }
   );
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await API.getAllExams();
-  //       setAllExams(response?.data?.data || []);
-  //     } catch (error) {
-  //       errorToast(error, "Can not fetch exam data");
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
+ 
   const onSubmit = async (formData) => {
     setLoading(true);
-    try {
-      const response = await API.updateCategory(id, {
-        ...formData,
-      });
+     try {
+      let response;
+      if (image) {
+        const formData = new FormData();
+        formData.append("images", image);
+
+        response = await API.uploadImages(formData);
+        await API.updateCategory(id, {
+          ...formData,
+          imageUrl: response?.data?.data[0],
+        });
+      } else {
+        response = await API.updateCategory(id, formData);
+      }
       successToast(response?.data?.message);
       setLoading(false);
       navigate(-1);
@@ -83,24 +90,36 @@ const EditCategory = () => {
                 type="text"
                 isInvalid={isInvalid}
                 isRequired={true}
+                defaultValue={categoryData?.name}
                 placeholder="Category Name"
                 errortext="Category Name Is Required"
                 errors={errors}
                 name="name"
                 register={register}
               />
-
               <InputField
-                label="Status"
+                label="Custom Product"
                 type="select"
                 options={[true, false]}
                 isInvalid={isInvalid}
                 placeholder="Status"
+                defaultValue={categoryData?.customProduct}
                 isRequired={true}
                 errortext="Status Is Required"
                 errors={errors}
                 name="customProduct"
                 register={register}
+              />
+            </div>
+            <div className="w-full">
+              <GeneralImageUpload
+                heading={"Upload Image"}
+                image={image}
+                setImage={setImage}
+                name="imageUrl"
+                errors={errors}
+                register={register}
+                defaultImage={categoryData?.imageUrl}
               />
             </div>
 

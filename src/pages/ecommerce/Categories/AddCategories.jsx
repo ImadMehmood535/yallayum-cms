@@ -9,36 +9,32 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { errorToast, successToast } from "../../../hooks/useToast";
 import { AddCategory } from "../../../validations/productcategory";
 
+import GeneralImageUpload from "../../../components/general/GeneralImageUpload";
+
 const AddCategories = () => {
   const [isInvalid, setIsInvalid] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [image, setImage] = useState(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(AddCategory) });
-
-  const [allexams, setAllExams] = useState([]);
-
-  // const getData = async () => {
-  //   try {
-  //     const response = await API.getAllExams();
-  //     setAllExams(response?.data?.data);
-  //   } catch (error) {
-  //     errorToast(error, "Cannot fetch exams");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  // } = useForm({ resolver: yupResolver(AddCategory) });
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await API.createCategory(data);
+      const formData = new FormData();
+      formData.append("images", image);
+      let response = await API.uploadImages(formData);
+      const uploadedUrl = response?.data?.data[0];
+      response = await API.createCategory({
+        ...data,
+        imageUrl: uploadedUrl,
+      });
       successToast(response?.data?.message);
       setLoading(false);
       navigate(-1);
@@ -51,6 +47,7 @@ const AddCategories = () => {
     navigate(-1);
   };
 
+  console.log(errors , "erros")
   return (
     <div className="page-area mt-10">
       <Header
@@ -74,7 +71,7 @@ const AddCategories = () => {
             />
 
             <InputField
-              label="Status"
+              label="Custom Product"
               type="select"
               options={[true, false]}
               isInvalid={isInvalid}
@@ -84,6 +81,17 @@ const AddCategories = () => {
               errors={errors}
               name="customProduct"
               register={register}
+            />
+          </div>
+          <div className="w-full">
+            <GeneralImageUpload
+              heading={"Upload Image"}
+              image={image}
+              setImage={setImage}
+              name="imageUrl"
+              errors={errors}
+              register={register}
+              
             />
           </div>
 
