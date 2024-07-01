@@ -33,6 +33,10 @@ import AddCategories from "../pages/ecommerce/Categories/AddCategories";
 import EditCategory from "../pages/ecommerce/Categories/EditCategory";
 import AllReviews from "../pages/ecommerce/reviews/AllReviews";
 import EditReviews from "../pages/ecommerce/reviews/EditReviews";
+import CustomProduct from "../pages/ecommerce/custom-product/CustomProduct";
+import EditCustomProduct from "../pages/ecommerce/custom-product/EditCustomProduct";
+import AddCustomFlavor from "../pages/ecommerce/custom-product/AddCustomFlavor";
+import AllOrders from "../pages/ecommerce/order/AllOrders";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +95,19 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "order",
+            children: [
+              {
+                path: "",
+                element: <AllOrders />,
+              },
+              {
+                path: "edit",
+                element: <AllReviews />,
+              },
+            ],
+          },
         ],
       },
       {
@@ -110,6 +127,28 @@ const router = createBrowserRouter([
               {
                 path: "edit-category",
                 element: <EditCategory />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "store",
+        children: [
+          {
+            path: "custom-product",
+            children: [
+              {
+                path: "",
+                element: <CustomProduct />,
+              },
+              {
+                path: "add-flavor",
+                element: <AddCustomFlavor />,
+              },
+              {
+                path: "edit-flavor",
+                element: <EditCustomProduct />,
               },
             ],
           },

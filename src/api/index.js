@@ -254,9 +254,32 @@ API.uploadImages = (data) => {
   return API.post("/image", data);
 };
 
+//order
+
+API.getAllOrders = () => {
+  return API.get("/order")
+}
+
 //statistics
 
 API.getStatistics = () => {
   return API.get("/statistics");
+};
+
+// custom product
+API.getAllFlavor = () => {
+  return API.get("flavor");
+};
+API.createFlavor = (data) => {
+  return API.post("flavor", data);
+};
+API.updateFlavor = (id, data) => {
+  return API.patch(`flavor/${id}`, data);
+};
+API.getAllSize = () => {
+  return API.get("size");
+};
+API.updateSize = (id, data) => {
+  return API.patch(`size/${id}`, data);
 };
 export { API };

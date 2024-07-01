@@ -120,7 +120,7 @@ const Tableform = ({
                             isDisabled
                             className="bg-transparent text-[#FF3A3A] border-[#FF3A3A] !opacity-100"
                           >
-                            Not  Approved
+                            Not Approved
                           </Button>
                         )
                       ) : datacolumn?.key === "isBlocked" ? (
@@ -141,17 +141,22 @@ const Tableform = ({
                             Active
                           </Button>
                         )
-                      ) : datacolumn?.key === "lastLogin" ? (
-                        formatLastLogin(item[datacolumn?.key])
+                      ) : datacolumn?.key === "orderStatus" ? (
+                        <Button
+                          variant="bordered"
+                          isDisabled
+                          className={`bg-transparent ${item[datacolumn?.key] === "PENDING" ? "text-red-500 border-red-500" : "text-[#3FD639] border-[#3FD639]"} !opacity-100`}
+
+                        >
+                          {item[datacolumn?.key]}
+                        </Button>
                       ) : datacolumn?.key === "imageUrl" ? (
                         <>
                           <img
                             src={item[datacolumn?.key]}
-                            
                             width={100}
                             height={400}
                           />
-                           
                         </>
                       ) : (
                         // Use innerText to strip HTML tags and entities

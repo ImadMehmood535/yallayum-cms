@@ -51,12 +51,12 @@ const ecommerceData = [
         icon: <CgFileDocument className="" />,
 
         name: "General Orders",
-        link: "store/details",
+        link: "store/order",
       },
       {
         icon: <TbListDetails className="" />,
         name: "Custom Orders ",
-        link: "store/update",
+        link: "store/custom-order",
       },
     ],
   },
