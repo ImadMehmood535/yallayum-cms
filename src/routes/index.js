@@ -31,6 +31,9 @@ import EditProducts from "../pages/ecommerce/products/EditProducts";
 import Categories from "../pages/ecommerce/Categories/Categories";
 import AddCategories from "../pages/ecommerce/Categories/AddCategories";
 import EditCategory from "../pages/ecommerce/Categories/EditCategory";
+import CustomProduct from "../pages/ecommerce/custom-product/CustomProduct";
+import EditCustomProduct from "../pages/ecommerce/custom-product/EditCustomProduct";
+import AddCustomFlavor from "../pages/ecommerce/custom-product/AddCustomFlavor";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +97,28 @@ const router = createBrowserRouter([
               {
                 path: "edit-category",
                 element: <EditCategory />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "store",
+        children: [
+          {
+            path: "custom-product",
+            children: [
+              {
+                path: "",
+                element: <CustomProduct />,
+              },
+              {
+                path: "add-flavor",
+                element: <AddCustomFlavor />,
+              },
+              {
+                path: "edit-flavor",
+                element: <EditCustomProduct />,
               },
             ],
           },

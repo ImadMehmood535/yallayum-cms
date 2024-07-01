@@ -229,7 +229,7 @@ API.getSingleProduct = (id) => {
   return API.get(`/product/id/${id}`);
 };
 
-API.updateProduct = (id , data) => {
+API.updateProduct = (id, data) => {
   return API.patch(`/product/${id}`, data);
 };
 
@@ -246,5 +246,22 @@ API.uploadImages = (data) => {
 
 API.getStatistics = () => {
   return API.get("/statistics");
+};
+
+// custom product
+API.getAllFlavor = () => {
+  return API.get("flavor");
+};
+API.createFlavor = (data) => {
+  return API.post("flavor", data);
+};
+API.updateFlavor = (id, data) => {
+  return API.patch(`flavor/${id}`, data);
+};
+API.getAllSize = () => {
+  return API.get("size");
+};
+API.updateSize = (id, data) => {
+  return API.patch(`size/${id}`, data);
 };
 export { API };
