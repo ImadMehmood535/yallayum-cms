@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../../api";
 import { errorToast, successToast } from "../../../hooks/useToast";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ExamSchema } from "../../../validations/exam";
 import Editor from "../../../components/general/Editor";
 import { Button } from "@nextui-org/react";
 import VariationInput from "../../../components/general/VariationInput";
-import IterateUpload from "./IterateUpload";
 import CategoryDropdown from "./VariationDropdown";
+import IterateUpload from "./IterateUpload";
+import { productScehma } from "../../../validations/productValidations";
 
 const AddProduct = () => {
   const [variationId, setVariationId] = useState(0);
@@ -35,7 +35,7 @@ const AddProduct = () => {
     setValue,
     formState: { errors },
     register,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(productScehma) });
 
   const [categories, setCategories] = useState(null);
 
@@ -151,6 +151,8 @@ const AddProduct = () => {
     updatedVariations[index][field] = value;
     setVariations(updatedVariations);
   };
+
+  console.log(errors , "errors")
 
   return (
     <div className="page-area mt-10">

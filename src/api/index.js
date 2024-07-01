@@ -225,6 +225,14 @@ API.getProducts = () => {
   return API.get("/product/admin");
 };
 
+API.getSingleProduct = (id) => {
+  return API.get(`/product/id/${id}`);
+};
+
+API.updateProduct = (id , data) => {
+  return API.patch(`/product/${id}`, data);
+};
+
 //newsletter
 API.getAllNewsletter = () => {
   return API.get("/newsletter");
