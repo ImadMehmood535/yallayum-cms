@@ -139,8 +139,8 @@ const Tableform = ({
                             Active
                         </Button>
                     )
-                ) : datacolumn?.key === "lastLogin" ? (
-                    formatLastLogin(item[datacolumn?.key])
+                ) : datacolumn?.key === "imageUrl" ? (
+                     <img src={item[datacolumn?.key]} alt="image"  className="w-[200px] rounded-sm"/>
                 ) : (
                     // Use innerText to strip HTML tags and entities
                     <span

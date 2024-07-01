@@ -215,13 +215,23 @@ API.updateReportStatus = (id, data) => {
   return API.patch(`report/${id}`, data);
 };
 
+//product
+
+API.uploadProduct = (data) => {
+  return API.post("/product", data);
+};
+
+API.getProducts = () => {
+  return API.get("/product/admin");
+};
+
 //newsletter
 API.getAllNewsletter = () => {
   return API.get("/newsletter");
 };
 
-API.uploadImage = (data) => {
-  return API.post("/upload", data);
+API.uploadImages = (data) => {
+  return API.post("/image", data);
 };
 
 //statistics

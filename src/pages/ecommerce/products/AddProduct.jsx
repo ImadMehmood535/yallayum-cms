@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/dashboard/Header";
 import InputField from "../../../components/general/InputField";
 import { useForm } from "react-hook-form";
@@ -10,15 +10,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ExamSchema } from "../../../validations/exam";
 import Editor from "../../../components/general/Editor";
 import { Button } from "@nextui-org/react";
+import VariationInput from "../../../components/general/VariationInput";
+import IterateUpload from "./IterateUpload";
+import CategoryDropdown from "./VariationDropdown";
 
 const AddProduct = () => {
   const [variationId, setVariationId] = useState(0);
   const [variations, setVariations] = useState([
     {
       id: variationId,
+      categoryId: "",
       price: "",
       salePrice: "",
       weight: "",
+      imageUrl: "",
+      gallery: [],
     },
   ]);
   const [loading, setLoading] = useState(false);
@@ -29,18 +35,80 @@ const AddProduct = () => {
     setValue,
     formState: { errors },
     register,
-  } = useForm({ resolver: yupResolver(ExamSchema) });
+  } = useForm();
 
+  const [categories, setCategories] = useState(null);
+
+  const getCategories = async () => {
+    try {
+      const response = await API.getAllCategories();
+      const data = response?.data?.data;
+      const filterdata = data?.filter(
+        (item) => item?.name !== "All Products" && !item?.customProduct
+      );
+      setCategories(filterdata);
+    } catch (error) {
+      errorToast(error, "Can not fetch categories");
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await API.addExam(data);
-      successToast(response?.data?.message);
+      const updatedVariations = await Promise.all(
+        variations.map(async (variation) => {
+          let formData = new FormData();
+          let updatedVariation = { ...variation };
+
+          if (variation.imageUrl) {
+            formData.append("images", variation.imageUrl[0]);
+            const response = await API.uploadImages(formData);
+            const uploadedUrls = response?.data?.data;
+
+            updatedVariation.imageUrl = uploadedUrls[0];
+          }
+
+          if (variation.gallery.length > 0) {
+            let galleryUrls = [];
+
+            for (const image of variation.gallery) {
+              let galleryFormData = new FormData();
+              galleryFormData.append("images", image);
+
+              const galleryResponse = await API.uploadImages(galleryFormData);
+              const galleryUploadedUrls = galleryResponse?.data?.data;
+              galleryUrls.push(galleryUploadedUrls[0]);
+            }
+
+            updatedVariation.gallery = galleryUrls;
+          }
+
+          updatedVariation.price = parseFloat(updatedVariation.price);
+          updatedVariation.salePrice = parseFloat(updatedVariation.salePrice);
+          updatedVariation.weight = parseFloat(updatedVariation.weight);
+          delete updatedVariation.id;
+
+          return updatedVariation;
+        })
+      );
+
+      const payload = {
+        ...data,
+        productVariation: updatedVariations,
+      };
+
+      const response = await API.uploadProduct(payload);
       setLoading(false);
-      navigate(-1);
+      successToast(response?.data?.message);
+      navigate("/dashboard/store/products");
     } catch (error) {
       setLoading(false);
-      errorToast(error, "Cannot add exam");
+
+      errorToast(error, "Can not upload product");
+      console.error("Error uploading images:", error);
     }
   };
 
@@ -54,9 +122,12 @@ const AddProduct = () => {
       ...prevVariations,
       {
         id: variationId + 1,
+        categoryId: "",
         price: "",
         salePrice: "",
         weight: "",
+        imageUrl: "",
+        gallery: [],
       },
     ]);
   };
@@ -65,6 +136,13 @@ const AddProduct = () => {
     const updatedVariations = variations.filter(
       (variation) => variation.id !== id
     );
+    setVariations(updatedVariations);
+  };
+
+  const handleCategoryChange = (event, index) => {
+    const { value } = event.target;
+    const updatedVariations = [...variations];
+    updatedVariations[index].categoryId = value;
     setVariations(updatedVariations);
   };
 
@@ -128,50 +206,76 @@ const AddProduct = () => {
             />
           </div>
 
-          {/* Variations */}
           {variations.map((variation, index) => (
             <div
               key={`variation-${variation.id}`}
-              className="w-full mt-4 p-4 bg-black/20 flex flex-wrap flex-col gap-6"
+              className="w-full  p-6 rounded-[20px] bg-[#FAF1DC]/40  flex flex-wrap flex-col gap-6 mb-4"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                <input
-                  type="number"
-                  placeholder="Enter sale price of your product"
+                <VariationInput
+                  type={"number"}
+                  placeholder={"Enter sale price of your product"}
                   value={variation.salePrice}
-                  onChange={(e) =>
-                    handleInputChange(index, "salePrice", e.target.value)
-                  }
-                  className="custom-input-design "
+                  handleInputChange={handleInputChange}
+                  name={"salePrice"}
+                  index={index}
+                  label={"Price"}
                 />
-                <input
-                  type="number"
-                  placeholder="Enter price of your product"
+                <VariationInput
+                  type={"number"}
+                  placeholder={"Enter price of your product"}
                   value={variation.price}
-                  onChange={(e) =>
-                    handleInputChange(index, "price", e.target.value)
-                  }
-                  className="custom-input-design"
+                  handleInputChange={handleInputChange}
+                  name={"price"}
+                  index={index}
+                  label={"Sale Price"}
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                <input
-                  type="number"
+                <VariationInput
+                  type={"number"}
                   placeholder="Enter weight of your product"
                   value={variation.weight}
-                  onChange={(e) =>
-                    handleInputChange(index, "weight", e.target.value)
-                  }
-                  className="custom-input-design"
+                  handleInputChange={handleInputChange}
+                  name={"weight"}
+                  index={index}
+                  label={"Weight in grams"}
+                />
+
+                <CategoryDropdown
+                  categories={categories}
+                  onChange={(e) => handleCategoryChange(e, index)}
                 />
               </div>
-              <Button
-                type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={() => handleRemoveVariation(variation.id)}
-              >
-                Remove Variation
-              </Button>
+              <div className="w-full">
+                <IterateUpload
+                  heading={"Featured Image"}
+                  isSingle={true}
+                  images={variation.imageUrl}
+                  setImages={(newImages) =>
+                    handleInputChange(index, "imageUrl", newImages)
+                  }
+                />
+              </div>
+              <div className="w-full">
+                <IterateUpload
+                  heading={"Gallery"}
+                  images={variation.gallery}
+                  setImages={(newImages) =>
+                    handleInputChange(index, "gallery", newImages)
+                  }
+                />
+              </div>
+
+              {index !== 0 && (
+                <Button
+                  type="button"
+                  className="bg-red-500 text-white px-4 py-2 rounded w-fit float-right"
+                  onClick={() => handleRemoveVariation(variation.id)}
+                >
+                  Remove Variation
+                </Button>
+              )}
             </div>
           ))}
 
