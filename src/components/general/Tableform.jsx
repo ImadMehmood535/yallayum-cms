@@ -94,77 +94,87 @@ const Tableform = ({
             {items?.map((item, rowIndex) => (
               <TableRow key={rowIndex}>
                 {tablecolumns?.map((datacolumn) => (
-            <TableCell
-            key={datacolumn?.key}
-            className="font-normal text-sm"
-        >
-          {datacolumn?.key === "num" ? count++  : null }
+                  <TableCell
+                    key={datacolumn?.key}
+                    className="font-normal text-sm"
+                  >
+                    {datacolumn?.key === "num" ? count++ : null}
 
-            {datacolumn?.key !== "actions" ? (
-                datacolumn?.key === "isLive" ||
-                datacolumn?.key === "isTrial" ||
-                datacolumn?.key === "subscription" ? (
-                    item[datacolumn?.key] ? (
-                        <Button
+                    {datacolumn?.key !== "actions" ? (
+                      datacolumn?.key === "isLive" ||
+                      datacolumn?.key === "isTrial" ||
+                      datacolumn?.key === "customProduct" ||
+                      datacolumn?.key === "subscription" ? (
+                        item[datacolumn?.key] ? (
+                          <Button
                             variant="bordered"
                             isDisabled
                             className="bg-transparent text-[#3FD639] border-[#3FD639] !opacity-100"
-                        >
+                          >
                             Active
-                        </Button>
-                    ) : (
-                        <Button
+                          </Button>
+                        ) : (
+                          <Button
                             variant="bordered"
                             isDisabled
                             className="bg-transparent text-[#FF3A3A] border-[#FF3A3A] !opacity-100"
-                        >
+                          >
                             Inactive
-                        </Button>
-                    )
-                ) : datacolumn?.key === "isBlocked" ? (
-                    item[datacolumn?.key] ? (
-                        <Button
+                          </Button>
+                        )
+                      ) : datacolumn?.key === "isBlocked" ? (
+                        item[datacolumn?.key] ? (
+                          <Button
                             variant="bordered"
                             isDisabled
                             className="bg-transparent text-[#FF3A3A] border-[#FF3A3A] !opacity-100"
-                        >
+                          >
                             Inactive
-                        </Button>
-                    ) : (
-                        <Button
+                          </Button>
+                        ) : (
+                          <Button
                             variant="bordered"
                             isDisabled
                             className="bg-transparent text-[#3FD639] border-[#3FD639] !opacity-100"
-                        >
+                          >
                             Active
-                        </Button>
-                    )
-                ) : datacolumn?.key === "imageUrl" ? (
-                     <img src={item[datacolumn?.key]} alt="image"  className="w-[200px] rounded-sm"/>
-                ) : (
-                    // Use innerText to strip HTML tags and entities
-                    <span
-                        dangerouslySetInnerHTML={{
+                          </Button>
+                        )
+                      ) : datacolumn?.key === "lastLogin" ? (
+                        formatLastLogin(item[datacolumn?.key])
+                      ) : datacolumn?.key === "imageUrl" ? (
+                        <>
+                          <img
+                            src={item[datacolumn?.key]}
+                            
+                            width={100}
+                            height={400}
+                          />
+                           
+                        </>
+                      ) : (
+                        // Use innerText to strip HTML tags and entities
+                        <span
+                          dangerouslySetInnerHTML={{
                             __html: item[datacolumn?.key],
-                        }}
-                    />
-                )
-            ) : (
-                <Tableactionsicons
-                    id={item?.id}
-                    pagename={pagename}
-                    ispreview={preview}
-                    object={item}
-                    modalheading={tableheading}
-                    updateApiPath={updateApiPath}
-                    updateItem={updateItem}
-                    getData={getData}
-                    handleDelete={handleDelete}
-                    isDelete={isDelete}
-                />
-            )}
-        </TableCell>
-        
+                          }}
+                        />
+                      )
+                    ) : (
+                      <Tableactionsicons
+                        id={item?.id}
+                        pagename={pagename}
+                        ispreview={preview}
+                        object={item}
+                        modalheading={tableheading}
+                        updateApiPath={updateApiPath}
+                        updateItem={updateItem}
+                        getData={getData}
+                        handleDelete={handleDelete}
+                        isDelete={isDelete}
+                      />
+                    )}
+                  </TableCell>
                 ))}
               </TableRow>
             ))}

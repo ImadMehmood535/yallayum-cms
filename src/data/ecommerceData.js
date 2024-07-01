@@ -2,12 +2,16 @@ import { CgProfile } from "react-icons/cg";
 import { TbListDetails } from "react-icons/tb";
 import { CgFileDocument } from "react-icons/cg";
 import { MdSecurity } from "react-icons/md";
+import { MdCoffeeMaker } from "react-icons/md";
+import { MdOutlineRateReview } from "react-icons/md";
+import { SiMake } from "react-icons/si";
+import { IoIosCreate } from "react-icons/io";
 
 const ecommerceData = [
   {
     id: 1,
     no: 1,
-    icon: <CgProfile className="text-themeBtn-0 rounded-none text-2xl" />,
+    icon: <IoIosCreate className="text-themeBtn-0 rounded-none text-2xl" />,
     name: "Store",
     link: "/store",
 
@@ -16,7 +20,7 @@ const ecommerceData = [
         icon: <CgFileDocument className="" />,
 
         name: "Categories",
-        link: "profile/details",
+        link: "store/categories",
       },
       {
         icon: <TbListDetails className="" />,
@@ -24,35 +28,35 @@ const ecommerceData = [
         link: "store/products",
       },
       {
-        icon: <TbListDetails className="" />,
+        icon: <MdCoffeeMaker className="" />,
         name: "Custom Product ",
-        link: "profile/custom-product",
+        link: "store/custom-product",
       },
       {
-        icon: <TbListDetails className="" />,
+        icon: <MdOutlineRateReview className="" />,
         name: "Reviews ",
-        link: "profile/reviews",
+        link: "store/reviews",
       },
     ],
   },
   {
     id: 2,
     no: 2,
-    icon: <CgProfile className="text-themeBtn-0 rounded-none text-2xl" />,
+    icon: <SiMake className="text-themeBtn-0 rounded-none text-2xl" />,
     name: "Orders",
-    link: "/profile",
+    link: "/store",
 
     subCategories: [
       {
         icon: <CgFileDocument className="" />,
 
         name: "General Orders",
-        link: "profile/details",
+        link: "store/details",
       },
       {
         icon: <TbListDetails className="" />,
         name: "Custom Orders ",
-        link: "profile/update",
+        link: "store/update",
       },
     ],
   },

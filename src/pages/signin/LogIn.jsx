@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validations/login";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice";
-import { Logo } from "../../assets";
+import { blackLogo } from "../../assets";
 
 const LogIn = () => {
   const [isInvalid, setIsInvalid] = useState(false);
@@ -45,7 +45,7 @@ const LogIn = () => {
       <div className="max-w-[650px] rounded-[25px] bg-themeSecondry-0 h-fit mx-auto py-20 px-2.5 sm:px-0  w-full ">
         <div className="w-[360px] max-w-[750px]   mx-auto ">
           <div className="logo-area flex flex-wrap justify-center mb-8">
-            <img src={Logo} alt={Logo} className="w-full" />
+            <img src={blackLogo} alt={blackLogo} className="w-full" />
           </div>
 
           <div className="form-area">

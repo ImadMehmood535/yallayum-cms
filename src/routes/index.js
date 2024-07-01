@@ -7,7 +7,7 @@ import Indexdashboard from "../pages/dashboarddefault/Indexdashboard";
 import SubscriptionComponent from "../pages/SubscriptionManagement/SubscriptionPackages/SubscriptionComponent";
 import AddSubscription from "../pages/SubscriptionManagement/SubscriptionPackages/AddSubscription";
 import EditSubscription from "../pages/SubscriptionManagement/SubscriptionPackages/EditSubscription";
- 
+
 import AllMember from "../pages/MembersManagement/AllMember";
 import AddMember from "../pages/MembersManagement/AddMember";
 import EditMember from "../pages/MembersManagement/EditMember";
@@ -28,6 +28,9 @@ import EditBlogs from "../pages/SiteManagement/blogs/EditBlogs";
 import Products from "../pages/ecommerce/products/Products";
 import AddProduct from "../pages/ecommerce/products/AddProduct";
 import EditProducts from "../pages/ecommerce/products/EditProducts";
+import Categories from "../pages/ecommerce/Categories/Categories";
+import AddCategories from "../pages/ecommerce/Categories/AddCategories";
+import EditCategory from "../pages/ecommerce/Categories/EditCategory";
 
 const router = createBrowserRouter([
   {
@@ -75,10 +78,32 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "store",
+        children: [
+          {
+            path: "categories",
+            children: [
+              {
+                path: "",
+                element: <Categories />,
+              },
+              {
+                path: "add-category",
+                element: <AddCategories />,
+              },
+              {
+                path: "edit-category",
+                element: <EditCategory />,
+              },
+            ],
+          },
+        ],
+      },
+      {
         path: "",
         element: <Indexdashboard />,
       },
-    
+
       {
         path: "all-subscription-packages",
         element: <SubscriptionComponent />,
