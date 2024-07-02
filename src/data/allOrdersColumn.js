@@ -12,6 +12,10 @@ const orderColumn = [
     label: "Name",
   },
   {
+    key: "userName",
+    label: "User",
+  },
+  {
     key: "userPhone",
     label: "Contact",
   },
@@ -20,7 +24,7 @@ const orderColumn = [
     label: "Email",
   },
   {
-    key: "totatItems",
+    key: "totalItems",
     label: "Total Items",
   },
   {

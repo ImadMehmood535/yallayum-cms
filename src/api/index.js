@@ -257,8 +257,12 @@ API.uploadImages = (data) => {
 //order
 
 API.getAllOrders = () => {
-  return API.get("/order")
-}
+  return API.get("/order");
+};
+
+API.getSingleOrder = (id) => {
+  return API.get(`/order/${id}`);
+};
 
 //statistics
 
