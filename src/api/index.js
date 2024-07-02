@@ -109,6 +109,36 @@ API.deleteBlogs = (id) => {
   return API.delete(`blog/${id}`);
 };
 
+// Recipes
+
+API.getRecipeHeading = () => {
+  return API.get("/recipe-heading");
+};
+
+API.updateRecipeHeading = (id, data) => {
+  return API.patch(`/recipe-heading/${id}`, data);
+};
+
+API.getAllRecipes = () => {
+  return API.get("recipe");
+};
+
+API.getSingleRecipe = (id) => {
+  return API.get(`/recipe/id/${id}`);
+};
+
+API.createRecipe = (data) => {
+  return API.post("recipe", data);
+};
+
+API.updateRecipe = (id, data) => {
+  return API.patch(`recipe/${id}`, data);
+};
+
+API.deleteRecipe= (id) => {
+  return API.delete(`recipe/${id}`);
+};
+
 //users
 API.registerUser = (data) => {
   return API.post("user", data);

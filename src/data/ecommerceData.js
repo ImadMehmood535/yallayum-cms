@@ -1,3 +1,4 @@
+import { CgProfile, CgWebsite } from "react-icons/cg";
 import { TbListDetails } from "react-icons/tb";
 import { CgFileDocument } from "react-icons/cg";
 import { MdCoffeeMaker } from "react-icons/md";
@@ -6,6 +7,7 @@ import { SiMake } from "react-icons/si";
 import { IoIosCreate } from "react-icons/io";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { BsPeopleFill } from "react-icons/bs";
+import { LiaBlogSolid } from "react-icons/lia";
 
 const ecommerceData = [
   {
@@ -73,6 +75,21 @@ const ecommerceData = [
 
         name: "All Members",
         link: "store/members",
+      },
+    ],
+  },
+  {
+    id: 5,
+    no: 5,
+    icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
+    name: "Newsletter",
+    link: "/",
+
+    subCategories: [
+      {
+        icon: <LiaBlogSolid className="" />,
+        name: "newsletter",
+        link: "/dashboard/newsletter",
       },
     ],
   },

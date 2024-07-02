@@ -107,7 +107,29 @@ const tabsdata = [
         name: "Blogs",
         link: "/dashboard/management/blogs",
       },
+      {
+        icon: <LiaBlogSolid className="" />,
+        name: "Recipes",
+        link: "/dashboard/management/recipes",
+      },
     ],
   },
+  // {
+  //   id: 5,
+  //   no: 5,
+  //   icon: <CgWebsite className="text-themeBtn-0  rounded-none text-2xl" />,
+  //   name: "Newsletter",
+  //   link: "/",
+
+  //   subCategories: [
+  //     {
+  //       icon: <LiaBlogSolid className="" />,
+  //       name: "newsletter",
+  //       link: "/dashboard/newsletter",
+  //     },
+       
+  //   ],
+  // },
+   
 ];
 export { tabsdata };

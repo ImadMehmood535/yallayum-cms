@@ -33,6 +33,9 @@ import EditOrders from "../pages/ecommerce/order/EditOrder";
 import AllCustomOrder from "../pages/ecommerce/custom-order/AllCustomOrder";
 import EditCustomOrder from "../pages/ecommerce/custom-order/EditCustomOrder";
 import EditMember from "../pages/MembersManagement/EditMember";
+import AddRecipes from "../pages/SiteManagement/recipes/AddRecipes";
+import AllRecipes from "../pages/SiteManagement/recipes/AllRecipes";
+import EditRecipes from "../pages/SiteManagement/recipes/EditRecipes";
 
 const router = createBrowserRouter([
   {
@@ -184,6 +187,23 @@ const router = createBrowserRouter([
               {
                 path: "edit",
                 element: <EditBlogs />,
+              },
+            ],
+          },
+          {
+            path: "recipes",
+            children: [
+              {
+                path: "",
+                element: <AllRecipes />,
+              },
+              {
+                path: "add",
+                element: <AddRecipes />,
+              },
+              {
+                path: "edit",
+                element: <EditRecipes />,
               },
             ],
           },
