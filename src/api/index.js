@@ -259,6 +259,11 @@ API.uploadImages = (data) => {
 API.getAllOrders = () => {
   return API.get("/order")
 }
+//custom order
+
+API.getAllCustomOrders = () => {
+  return API.get("/custom-order")
+}
 
 //statistics
 

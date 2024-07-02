@@ -68,7 +68,7 @@ const EditReviews = () => {
       <form className="grid grid-col-1 gap-6" onSubmit={handleSubmit(onSubmit)}>
         {review && (
           <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
-            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-col-1 sm:grid-cols-3 gap-4 mt-4">
               <Input
                 isReadOnly
                 type="text"
@@ -81,8 +81,7 @@ const EditReviews = () => {
                 label="Stars given "
                 defaultValue={review?.stars}
               />
-            </div>
-            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4">
+
               <Input
                 isReadOnly
                 type="text"
@@ -104,29 +103,33 @@ const EditReviews = () => {
                 defaultValue={review?.productPrice}
               />
             </div>
-            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4 items-center ">
-              <img
-                src={review?.imageUrl}
-                alt="image"
-                className="max-w-[300px] w-full rounded-md"
-              />
-              <div className="flex flex-col">
-                <p>User Review</p>
-                <p className="font-normal">{review?.userReview}</p>
+            <div className="flex flex-col md:flex-row gap-4 mt-4 items-center ">
+              <div className="image-wrapper w-full sm:w-[20%]">
+                <img
+                  src={review?.imageUrl}
+                  alt="image"
+                  width={200}
+                  height={200}
+                  className="max-w-[300px] w-full rounded-md"
+                />
+              </div>
+              <div className="content-wrapper w-full sm:w-[80%]">
+                <h4 className="capitalize text-2xl mb-2">User Review</h4>
+                <p className="font-normal text-base">{review?.userReview}</p>
               </div>
             </div>
-            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4  w-full  ">
-              <InputField
-                label="Reply"
-                type="text"
-                placeholder="Place type for reply"
-                errors={errors}
-                name="adminReply"
-                register={register}
-                defaultValue={review?.adminReply}
-              />
-            </div>
-            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4  w-full  ">
+            <div className="grid grid-col-1 sm:grid-cols-3 gap-4 mt-4  w-full  ">
+              <div className="text-area col-span-2">
+                <InputField
+                  label="Reply"
+                  type="textarea"
+                  placeholder="Place type for reply"
+                  errors={errors}
+                  name="adminReply"
+                  register={register}
+                  defaultValue={review?.adminReply}
+                />
+              </div>
               <InputField
                 label="Approve"
                 type="select"
@@ -139,6 +142,7 @@ const EditReviews = () => {
                 defaultValue={review?.isApproved}
               />
             </div>
+            <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4  w-full  "></div>
           </div>
         )}
 

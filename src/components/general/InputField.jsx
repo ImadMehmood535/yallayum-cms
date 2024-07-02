@@ -1,4 +1,4 @@
-import { Input, Select, SelectItem } from "@nextui-org/react";
+import { Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import React, { useState } from "react";
 import { MdErrorOutline } from "react-icons/md";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
@@ -91,6 +91,34 @@ const InputField = ({
             >
               yes
             </Checkbox>
+          ) : type === "textarea" ? (
+            <Textarea 
+              type={isVisible ? "text" : type}
+              required={isRequired}
+              variant="bordered"
+              placeholder={placeholder}
+              isInvalid={isInvalid}
+              errorMessage={errortext}
+              size="lg"
+              radius="md"
+              aria-label={label || placeholder}
+              labelPlaceholder="Secondary"
+              defaultValue={defaultValue}
+              value={value}
+              onValueChange={setValue}
+              color={isInvalid ? "#00000" : "#8F8F8F"}
+              {...register(name, { required: isRequired ? true : false })}
+              
+              classNames={{
+                inputWrapper: [
+                  "bordered",
+                  "border-1",
+                  "border-[#EBEBEB]",
+                  "hover:border-[#3F7FAE]",
+                  "custom-input-design",
+                ],
+              }}
+            />
           ) : (
             <Input
               type={isVisible ? "text" : type}

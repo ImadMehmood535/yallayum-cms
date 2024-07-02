@@ -37,6 +37,8 @@ import CustomProduct from "../pages/ecommerce/custom-product/CustomProduct";
 import EditCustomProduct from "../pages/ecommerce/custom-product/EditCustomProduct";
 import AddCustomFlavor from "../pages/ecommerce/custom-product/AddCustomFlavor";
 import AllOrders from "../pages/ecommerce/order/AllOrders";
+import AllCustomOrder from "../pages/ecommerce/custom-order/AllCustomOrder";
+import EditCustomOrder from "../pages/ecommerce/custom-order/EditCustomOrder";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,19 @@ const router = createBrowserRouter([
               {
                 path: "edit",
                 element: <AllReviews />,
+              },
+            ],
+          },
+          {
+            path: "custom-order",
+            children: [
+              {
+                path: "",
+                element: <AllCustomOrder />,
+              },
+              {
+                path: "edit",
+                element: <EditCustomOrder />,
               },
             ],
           },
