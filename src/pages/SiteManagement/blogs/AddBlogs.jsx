@@ -28,17 +28,15 @@ const AddBlogs = () => {
 
   const onSubmit = async (data) => {
     try {
-      const formdata = new FormData();
-      formdata.append("image", image);
-
       if (image) {
         setLoading(true);
-
-        const upload = await API.uploadImage(formdata);
+        const formdata = new FormData();
+        formdata.append("images", image);
+        const upload = await API.uploadImages(formdata);
 
         const response = await API.createBlogs({
           ...data,
-          imageUrl: upload?.data?.data,
+          imageUrl: upload?.data?.data[0],
         });
         successToast(response?.data?.message);
         setLoading(false);
@@ -78,7 +76,7 @@ const AddBlogs = () => {
             />
           </div>
 
-          <div className="grid grid-col-1 sm:grid-cols-2  gap-4    mb-4">
+          <div className="grid grid-col-1 sm:grid-cols-3  gap-4  items-end   mb-4">
             <InputField
               label="Slug"
               type="text"
@@ -94,6 +92,14 @@ const AddBlogs = () => {
             >
               Generate
             </Button>
+            <InputField
+              label="By"
+              type="text"
+              placeholder="Yallayum"
+              errors={errors}
+              name="by"
+              register={register}
+            />
           </div>
           <div className="grid grid-col-1   gap-4  mt-8 mb-4">
             <GeneralImageUpload

@@ -7,24 +7,21 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { errorToast, successToast } from "../../../hooks/useToast";
-import { AddExamCategory } from "../../../validations/categories";
 import Editor from "../../../components/general/Editor";
 import { addBlogsSchema } from "../../../validations/blogs";
 import { Button } from "@nextui-org/react";
 import { generateSlug } from "../../../utils/slug";
-import ImageUpload from "../../../components/general/ImageUpload";
 import { useQuery } from "../../../hooks/queryParam";
 import Loader from "../../../components/general/Loader";
+import GeneralImageUpload from "../../../components/general/GeneralImageUpload";
 
 const EditBlogs = () => {
   const [loading, setLoading] = useState(false);
   const [pageData, setPageData] = useState(true);
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [imageError, setImageError] = useState(null);
   let query = useQuery();
-  let id = Number(query.get("id"));
+  let id = query.get("id");
 
   const {
     register,
@@ -54,17 +51,23 @@ const EditBlogs = () => {
   const onSubmit = async (data) => {
     try {
       let response;
-      if (image) {
+      if (data?.imageUrl instanceof File) {
         setLoading(true);
         const formdata = new FormData();
-        formdata.append("image", image);
-        const upload = await API.uploadImage(formdata);
+        formdata.append("images", image);
+        const upload = await API.uploadImages(formdata);
         response = await API.updateBlogs(id, {
           ...data,
-          imageUrl: upload?.data?.data,
+          imageUrl: upload?.data?.data[0],
         });
       } else {
-        response = await API.updateBlogs(id, data);
+        response = await API.updateBlogs(id, {
+          by: data?.by,
+          description: data?.description,
+          name: data?.name,
+          short_description: data?.short_description,
+          slug: data?.slug,
+        });
       }
       successToast(response?.data?.message);
       setLoading(false);
@@ -85,19 +88,9 @@ const EditBlogs = () => {
     setValue("slug", slug);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(file);
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
- 
+  useEffect(() => {
+    setValue("imageUrl", data?.imageUrl);
+  }, [data]);
 
   return (
     <div className="page-area mt-10">
@@ -123,17 +116,45 @@ const EditBlogs = () => {
                 register={register}
               />
             </div>
-            <div className="grid grid-col-1   gap-4  mt-8 mb-4">
-              <ImageUpload
-                previousImage={data?.imageUrl}
-                handleImageChange={handleImageChange}
-                preview={preview}
-                register={register}
+            <div className="grid grid-col-1 sm:grid-cols-3  gap-4  items-end   mb-4">
+              <InputField
+                label="Slug"
+                type="text"
+                placeholder="generate or enter your slug"
                 errors={errors}
+                name="slug"
+                defaultValue={data?.slug}
+                register={register}
               />
-              {imageError && (
-                <p className="text-tiny text-danger pl-3 mt-1">{imageError}</p>
-              )}
+
+              <Button
+                onClick={handleSlug}
+                className="bg-themeBtn-0 text-white max-w-[100px]   "
+              >
+                Generate
+              </Button>
+              <InputField
+                label="By"
+                type="text"
+                placeholder="Yallayum"
+                errors={errors}
+                name="by"
+                defaultValue={data?.by}
+                register={register}
+              />
+            </div>
+
+            <div className="grid grid-col-1   gap-4  mt-8 mb-4">
+              <GeneralImageUpload
+                heading={"Upload Image"}
+                image={image}
+                setImage={setImage}
+                name="imageUrl"
+                errors={errors}
+                register={register}
+                setValue={setValue}
+                defaultImage={data?.imageUrl}
+              />
             </div>
             <div className="grid grid-col-1   gap-4  mt-8 mb-4">
               <Editor
@@ -192,7 +213,9 @@ const EditBlogs = () => {
             </div>
           </div>
         </form>
-      ) : (<Loader/>)}
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

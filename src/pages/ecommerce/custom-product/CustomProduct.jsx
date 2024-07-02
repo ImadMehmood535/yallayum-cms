@@ -6,18 +6,14 @@ import { API } from "../../../api";
 import { errorToast } from "../../../hooks/useToast";
 import Loader from "../../../components/general/Loader";
 import { customproduct } from "../../../data/customproducttable";
-import CustomLinkComp from "../../../components/general/CustomLinkComp";
-import PopupModal from "../../../components/general/PopupModal";
-import EditSizeModal from "../../../components/general/EditSizeModal";
+  import EditSizeModal from "../../../components/general/EditSizeModal";
 
 const CustomProduct = () => {
   const [itemPerPage, setitemPerPage] = useState(10);
-  const [filterdata, setfilterdata] = useState();
-  const [searchFilter, setSearchFilter] = useState(null);
+   const [searchFilter, setSearchFilter] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [allcategories, setAllCategories] = useState(null);
-  const [allflavor, setAllFlavor] = useState(null);
+   const [allflavor, setAllFlavor] = useState(null);
 
   const getData = async () => {
     try {

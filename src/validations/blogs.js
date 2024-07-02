@@ -8,5 +8,10 @@ const addBlogsSchema = yup.object().shape({
   description: yup.string().required("Discription is required"),
   imageUrl: yup.mixed().required("Image is required"),
 });
+const blogSectionHeading = yup.object().shape({
+  head: yup.string().required("Heading is required"),
+  span: yup.string().required("Span is required"),
+  paragh: yup.string().required("Paragraph is required"),
+});
 
-export { addBlogsSchema };
+export { addBlogsSchema, blogSectionHeading };

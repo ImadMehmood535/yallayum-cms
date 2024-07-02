@@ -84,6 +84,23 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "custom-product",
+            children: [
+              {
+                path: "",
+                element: <CustomProduct />,
+              },
+              {
+                path: "add-flavor",
+                element: <AddCustomFlavor />,
+              },
+              {
+                path: "edit-flavor",
+                element: <EditCustomProduct />,
+              },
+            ],
+          },
 
           {
             path: "reviews",
@@ -124,11 +141,6 @@ const router = createBrowserRouter([
               },
             ],
           },
-        ],
-      },
-      {
-        path: "store",
-        children: [
           {
             path: "categories",
             children: [
@@ -148,28 +160,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "store",
-        children: [
-          {
-            path: "custom-product",
-            children: [
-              {
-                path: "",
-                element: <CustomProduct />,
-              },
-              {
-                path: "add-flavor",
-                element: <AddCustomFlavor />,
-              },
-              {
-                path: "edit-flavor",
-                element: <EditCustomProduct />,
-              },
-            ],
-          },
-        ],
-      },
+
       {
         path: "management",
         children: [
@@ -183,6 +174,10 @@ const router = createBrowserRouter([
               {
                 path: "add",
                 element: <AddBlogs />,
+              },
+              {
+                path: "edit",
+                element: <EditBlogs />,
               },
             ],
           },

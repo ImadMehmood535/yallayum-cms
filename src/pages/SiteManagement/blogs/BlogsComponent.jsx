@@ -6,18 +6,24 @@ import ResultFilterBar from "../../../components/general/ResultFilterBar";
 import Tableform from "../../../components/general/Tableform";
 import Loader from "../../../components/general/Loader";
 import { blogsColumn } from "../../../data/blogsColumn";
+import GeneralModal from "../../../components/general/GeneralModal";
+import { blogSectionHeading } from "../../../validations/blogs";
 
 const BlogsComponent = () => {
   const [itemPerPage, setitemPerPage] = useState(10);
   const [searchFilter, setSearchFilter] = useState(null);
-
+  const [sectionData, setSectionData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingSection, setLoadingSection] = useState(false);
+
   const [allblogs, setAllBlogs] = useState(null);
 
   const getData = async () => {
     try {
-      const response = await API.getAllBlogs();
+      let response = await API.getAllBlogs();
       setAllBlogs(response?.data?.data?.blogs);
+      response = await API.getBlogHeading();
+      setSectionData(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -38,6 +44,18 @@ const BlogsComponent = () => {
       errorToast("Can not delete Blog");
     }
   };
+
+  const submitSection = async (formData) => {
+    setLoadingSection(true);
+    try {
+      const response = await API.updateBlogHeading(sectionData?.id, formData);
+      successToast(response?.data?.message);
+      setLoadingSection(false);
+    } catch (error) {
+      setLoadingSection(false);
+      errorToast(error, "Cannot update data");
+    }
+  };
   return (
     <div className="page-area mt-10">
       <Header
@@ -54,10 +72,22 @@ const BlogsComponent = () => {
           filterdata={allblogs}
           setSearchFilter={setSearchFilter}
         />
+
         {loading ? (
           <Loader />
         ) : (
           <>
+            <div className="mt-4">
+              <GeneralModal
+                sectionData={sectionData}
+                btntitle={"Edit Blog Section"}
+                title={"Edit Section"}
+                names={["head", "span", "paragh"]}
+                submitSection={submitSection}
+                loading={loadingSection}
+                validationSchema={blogSectionHeading}
+              />
+            </div>
             {allblogs && (
               <Tableform
                 filterdata={allblogs}

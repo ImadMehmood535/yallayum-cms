@@ -81,12 +81,20 @@ API.updatePromo = (id, data) => {
 
 // blogs
 
+API.getBlogHeading = () => {
+  return API.get("/blog-heading");
+};
+
+API.updateBlogHeading = (id, data) => {
+  return API.patch(`/blog-heading/${id}`, data);
+};
+
 API.getAllBlogs = () => {
   return API.get("blog");
 };
 
 API.getSingleBlog = (id) => {
-  return API.get(`blog/${id}`);
+  return API.get(`/blog/id/${id}`);
 };
 
 API.createBlogs = (data) => {
