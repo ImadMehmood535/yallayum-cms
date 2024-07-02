@@ -8,7 +8,7 @@ const newslettercolumn = [
     label: "Email",
   },
   {
-    key: "submiited",
+    key: "date",
     label: "Date",
   },
 ];
