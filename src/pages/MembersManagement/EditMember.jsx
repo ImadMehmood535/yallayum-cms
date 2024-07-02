@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { errorToast, successToast } from "../../hooks/useToast";
 import { useQuery } from "../../hooks/queryParam";
 import Loader from "../../components/general/Loader";
+import InfoCard from "../../components/general/InfoCard";
 
 const EditMember = () => {
   const [isInvalid, setIsInvalid] = useState(false);
@@ -17,20 +18,7 @@ const EditMember = () => {
   const [pageData, setPageData] = useState(true);
   const navigate = useNavigate();
   let query = useQuery();
-  let id = Number(query.get("id"));
-
-  const allcountry = [
-    {
-      id: "Unitesd States",
-      key: "Unitesd States",
-      name: "Unitesd States",
-    },
-    {
-      id: "UAE",
-      key: "UAE",
-      name: "UAE",
-    },
-  ];
+  let id = query.get("id");
 
   const {
     register,
@@ -53,16 +41,11 @@ const EditMember = () => {
   useEffect(() => {
     getData();
   }, [id]);
-  
 
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
-      const response = await API.updateUser({
-        ...formData,
-        id: id,
-        isBlocked: formData?.isBlocked ? false : true,
-      });
+      const response = await API.updateUser(id, formData);
       successToast(response?.data?.message);
       setLoading(false);
       navigate(-1);
@@ -86,97 +69,26 @@ const EditMember = () => {
           className="grid grid-col-1 gap-6"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
+          <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8 flex flex-col gap-5">
             <div className="grid grid-col-1 sm:grid-cols-2 gap-4  ">
-              <InputField
-                label="First Name"
-                type="text"
-                isInvalid={isInvalid}
-                isRequired={false}
-                defaultValue={data?.firstName}
-                placeholder="First Name"
-                errortext="First Is Required"
-                errors={errors}
-                name="firstName"
-                register={register}
-              />
-              <InputField
-                label="Last Name"
-                type="text"
-                isInvalid={isInvalid}
-                isRequired={false}
-                defaultValue={data?.lastName}
-                placeholder="Last Name"
-                errortext="Last Is Required"
-                errors={errors}
-                name="lastName"
-                register={register}
-              />
+              <InfoCard title="Name" value={data?.name} />
+              <InfoCard title="Email" value={data?.email} />
             </div>
             <div className="grid grid-col-1 sm:grid-cols-2 gap-4  ">
-              <InputField
-                label="Email"
-                type="email"
-                isInvalid={isInvalid}
-                isRequired={true}
-                defaultValue={data?.email}
-                placeholder="Email Address"
-                errors={errors}
-                errortext="Email Is Required"
-                name="email"
-                register={register}
-              />
-              <InputField
-                label="password"
-                type="text"
-                isInvalid={isInvalid}
-                isRequired={true}
-                placeholder="password"
-                defaultValue={data?.password}
-                errortext="password Is Required"
-                errors={errors}
-                name="password"
-                register={register}
-              />
+              <InfoCard title="Contact Number" value={data?.phoneNumber} />
+              <InfoCard title="Email" value={data?.date} />
             </div>
             <div className="grid grid-col-1 sm:grid-cols-3 gap-4  ">
-              <InputField
-                label="Hear From"
-                type="text"
-                isInvalid={isInvalid}
-                isRequired={false}
-                defaultValue={data?.hearFrom}
-                placeholder="Hear From"
-                errortext="hearFrom Is Required"
-                errors={errors}
-                name="hearFrom"
-                register={register}
-              />
-              <InputField
-                label="country Name"
-                type="select"
-                options={allcountry}
-                isInvalid={isInvalid}
-                isRequired={true}
-                defaultValue={data?.country}
-                placeholder="country Name"
-                errortext="country Name Is Required"
-                errors={errors}
-                name="country"
-                register={register}
-              />
               <InputField
                 label="Status"
                 type="select"
                 options={[true, false]}
-                isInvalid={isInvalid}
                 placeholder="Status"
-                isRequired={true}
-                defaultValue={data?.isBlocked ? false : true}
-                errortext="Status Is Required"
+                defaultValue={data?.isActive ? true : false}
                 errors={errors}
-                name="isBlocked"
+                name="isActive"
                 register={register}
+                text = {["Active", "Blocked"]}
               />
             </div>
 
@@ -198,7 +110,9 @@ const EditMember = () => {
             </div>
           </div>
         </form>
-      ) : (<Loader/>)}
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

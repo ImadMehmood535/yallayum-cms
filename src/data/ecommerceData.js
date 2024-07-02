@@ -1,11 +1,11 @@
-import { CgProfile } from "react-icons/cg";
 import { TbListDetails } from "react-icons/tb";
 import { CgFileDocument } from "react-icons/cg";
-import { MdSecurity } from "react-icons/md";
 import { MdCoffeeMaker } from "react-icons/md";
 import { MdOutlineRateReview } from "react-icons/md";
 import { SiMake } from "react-icons/si";
 import { IoIosCreate } from "react-icons/io";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { BsPeopleFill } from "react-icons/bs";
 
 const ecommerceData = [
   {
@@ -57,6 +57,22 @@ const ecommerceData = [
         icon: <TbListDetails className="" />,
         name: "Custom Orders ",
         link: "store/custom-order",
+      },
+    ],
+  },
+  {
+    id: 3,
+    no: 3,
+    icon: <BsPeopleFill className="text-themeBtn-0 rounded-none text-2xl" />,
+    name: "Members",
+    link: "/users",
+
+    subCategories: [
+      {
+        icon: <FaPeopleGroup className="" />,
+
+        name: "All Members",
+        link: "store/members",
       },
     ],
   },

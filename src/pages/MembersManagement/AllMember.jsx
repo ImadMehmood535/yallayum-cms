@@ -10,16 +10,15 @@ import { allmembercolumn } from "../../data/allmembercolumn";
 
 const AllMember = () => {
   const [itemPerPage, setitemPerPage] = useState(10);
-  const [filterdata, setfilterdata] = useState();
   const [searchFilter, setSearchFilter] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [allcategories, setAllCategories] = useState(null);
+  const [allMembers, setAllMembers] = useState(null);
 
   const getData = async () => {
     try {
       const response = await API.getAllUsers();
-      setAllCategories(response?.data?.data);
+      setAllMembers(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -36,27 +35,25 @@ const AllMember = () => {
         pagetitle={"Members Management"}
         previous={"Dashboard"}
         currentpage={"All Member"}
-        btntext={"Add Members "}
-        btnlink={"/dashboard/members-management/add-members"}
       />
       <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
         <ResultFilterBar
           setitemPerPage={setitemPerPage}
-          setfilterdata={setAllCategories}
-          filterdata={allcategories}
+          setfilterdata={setAllMembers}
+          filterdata={allMembers}
           setSearchFilter={setSearchFilter}
         />
         {loading ? (
           <Loader />
         ) : (
           <>
-            {allcategories && (
+            {allMembers && (
               <Tableform
-                filterdata={allcategories}
+                filterdata={allMembers}
                 tablecolumns={allmembercolumn}
                 itemPerPage={itemPerPage}
                 searchFilter={searchFilter}
-                pagename={"edit-members"}
+                pagename={"edit"}
               />
             )}
           </>

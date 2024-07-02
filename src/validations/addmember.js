@@ -1,15 +1,6 @@
 import * as yup from "yup";
 const Editmember = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
-  email: yup.string().required("email is required"),
-  password: yup.string().required("password is required"),
-  country: yup.string().required("country is required"),
-  hearFrom: yup.string(),
-  country: yup
-    .string()
-    .transform((value, original) => (original === "" ? null : String(value))),
-  isBlocked: yup.boolean().required("Status is required"),
+  isActive: yup.boolean().required("Status is required"),
 });
 const Addmember = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -21,7 +12,10 @@ const Addmember = yup.object().shape({
 });
 
 const addSubscribedMemberSchema = yup.object().shape({
-  userId: yup.number().typeError("Member Email is required").required("Member Id is required"),
+  userId: yup
+    .number()
+    .typeError("Member Email is required")
+    .required("Member Id is required"),
   subscriptionId: yup
     .number()
     .typeError("Please select a subscription")
@@ -57,5 +51,5 @@ export {
   Addmember,
   Editmember,
   addSubscribedMemberSchema,
-  editSubscribedMemberSchema
+  editSubscribedMemberSchema,
 };

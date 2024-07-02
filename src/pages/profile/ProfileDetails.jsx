@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/dashboard/Header";
 import { Input } from "@nextui-org/react";
+import InfoCard from "../../components/general/InfoCard";
 
 const ProfileDetails = () => {
   const user = useSelector((state) => state.user.user);
@@ -16,27 +17,11 @@ const ProfileDetails = () => {
             <h5>Profile Details</h5>
             <div className="flex flex-col gap-5  ">
               <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4">
-                <Input
-                  isReadOnly
-                  type="text"
-                  label="First Name"
-                  defaultValue={user?.firstName}
-                />
-                <Input
-                  isReadOnly
-                  type="text"
-                  label="Last Name"
-                  defaultValue={user?.lastName}
-                />
+                <InfoCard title="First Name" value={user?.firstName} />
+                <InfoCard title="Last Name" value={user?.lastName} />
               </div>
               <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4">
-                
-                <Input
-                  isReadOnly
-                  type="email"
-                  label="Email"
-                  defaultValue={user?.email}
-                />
+                <InfoCard title="Email" value={user?.email} />
               </div>
             </div>
           </div>

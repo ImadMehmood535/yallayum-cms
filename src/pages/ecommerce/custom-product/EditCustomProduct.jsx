@@ -24,6 +24,7 @@ const EditCustomProduct = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm(
     { resolver: yupResolver(editFlavor) },
@@ -50,7 +51,10 @@ const EditCustomProduct = () => {
           imageUrl: response?.data?.data[0],
         });
       } else {
-        response = await API.updateFlavor(id, formData);
+        response = await API.updateFlavor(id, {
+          name: formData?.name,
+          price: formData?.price,
+        });
       }
       successToast(response?.data?.message);
       setLoading(false);
@@ -64,6 +68,10 @@ const EditCustomProduct = () => {
   const handleCancle = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    setValue("imageUrl", flavor?.imageUrl);
+  }, [flavor]);
 
   return (
     <div className="page-area mt-10">
@@ -93,7 +101,7 @@ const EditCustomProduct = () => {
                 register={register}
               />
               <InputField
-                label="Price"
+                label="Price Per 10 grams"
                 type="number"
                 isInvalid={isInvalid}
                 isRequired={true}
@@ -114,6 +122,7 @@ const EditCustomProduct = () => {
                 errors={errors}
                 register={register}
                 defaultImage={flavor?.imageUrl}
+                setValue={setValue}
               />
             </div>
 

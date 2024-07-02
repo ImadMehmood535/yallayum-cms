@@ -27,7 +27,7 @@ const RootLayout = () => {
       >
         <Dashboardsidebar toggleSidebar={toggleSidebar} />
        </div>
-      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-[#FFF2F1] px-4 py-4">
+      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-gray-100 px-4 py-4">
         {/* <Header /> */}
         <Bodyarea />
       </div>

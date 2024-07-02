@@ -28,6 +28,7 @@ const EditCategory = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm(
     { resolver: yupResolver(editCategory) },
@@ -54,7 +55,10 @@ const EditCategory = () => {
           imageUrl: response?.data?.data[0],
         });
       } else {
-        response = await API.updateCategory(id, formData);
+        response = await API.updateCategory(id, {
+          name: formData?.name,
+          customProduct: formData?.customProduct,
+        });
       }
       successToast(response?.data?.message);
       setLoading(false);
@@ -68,6 +72,10 @@ const EditCategory = () => {
   const handleCancle = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    setValue("imageUrl", categoryData?.imageUrl);
+  }, [categoryData]);
 
   return (
     <div className="page-area mt-10">
@@ -119,6 +127,7 @@ const EditCategory = () => {
                 errors={errors}
                 register={register}
                 defaultImage={categoryData?.imageUrl}
+                setValue={setValue}
               />
             </div>
 

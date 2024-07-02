@@ -19,6 +19,7 @@ const AddCustomFlavor = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(AddFlavor) });
 
@@ -67,7 +68,7 @@ const AddCustomFlavor = () => {
               register={register}
             />
             <InputField
-              label="Price"
+              label="Price Per 10 grams"
               type="number"
               isInvalid={isInvalid}
               isRequired={true}
@@ -86,6 +87,7 @@ const AddCustomFlavor = () => {
               name="imageUrl"
               errors={errors}
               register={register}
+              setValue={setValue}
             />
           </div>
 

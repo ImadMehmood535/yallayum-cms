@@ -8,6 +8,7 @@ import { Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../../../components/general/ButtonComponent";
+import InfoCard from "../../../components/general/InfoCard";
 
 const EditReviews = () => {
   const query = useQuery();
@@ -67,41 +68,15 @@ const EditReviews = () => {
 
       <form className="grid grid-col-1 gap-6" onSubmit={handleSubmit(onSubmit)}>
         {review && (
-          <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
+          <div className="page-comp bg-white shadow-md mt-10 rounded-xl px-8 py-8">
             <div className="grid grid-col-1 sm:grid-cols-3 gap-4 mt-4">
-              <Input
-                isReadOnly
-                type="text"
-                label="User Name"
-                defaultValue={review?.userName}
-              />
-              <Input
-                isReadOnly
-                type="text"
-                label="Stars given "
-                defaultValue={review?.stars}
-              />
-
-              <Input
-                isReadOnly
-                type="text"
-                label="Date"
-                defaultValue={review?.date}
-              />
+              <InfoCard title="User Name" value={review?.userName} />
+              <InfoCard title="Stars given" value={review?.stars} />
+              <InfoCard title="Date" value={review?.date} />
             </div>
             <div className="grid grid-col-1 sm:grid-cols-2 gap-4 mt-4">
-              <Input
-                isReadOnly
-                type="text"
-                label="Product Name"
-                defaultValue={review?.name}
-              />
-              <Input
-                isReadOnly
-                type="text"
-                label="Product Price"
-                defaultValue={review?.productPrice}
-              />
+              <InfoCard title="Product Name" value={review?.name} />
+              <InfoCard title="Product Price" value={review?.productPrice} />
             </div>
             <div className="flex flex-col md:flex-row gap-4 mt-4 items-center ">
               <div className="image-wrapper w-full sm:w-[20%]">
@@ -114,14 +89,13 @@ const EditReviews = () => {
                 />
               </div>
               <div className="content-wrapper w-full sm:w-[80%]">
-                <h4 className="capitalize text-2xl mb-2">User Review</h4>
-                <p className="font-normal text-base">{review?.userReview}</p>
+                <InfoCard title="User Review" value={review?.userReview} />
               </div>
             </div>
-            <div className="grid grid-col-1 sm:grid-cols-3 gap-4 mt-4  w-full  ">
+            <div className="grid grid-col-1 sm:grid-cols-3 gap-4 mt-4 items-center  w-full  ">
               <div className="text-area col-span-2">
                 <InputField
-                  label="Reply"
+                  label="Give A reply"
                   type="textarea"
                   placeholder="Place type for reply"
                   errors={errors}

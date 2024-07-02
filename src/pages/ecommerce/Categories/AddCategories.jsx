@@ -20,9 +20,9 @@ const AddCategories = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(AddCategory) });
-  // } = useForm({ resolver: yupResolver(AddCategory) });
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -47,7 +47,7 @@ const AddCategories = () => {
     navigate(-1);
   };
 
-  console.log(errors , "erros")
+  console.log(errors, "erros");
   return (
     <div className="page-area mt-10">
       <Header
@@ -91,7 +91,7 @@ const AddCategories = () => {
               name="imageUrl"
               errors={errors}
               register={register}
-              
+              setValue={setValue}
             />
           </div>
 

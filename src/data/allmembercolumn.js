@@ -11,20 +11,13 @@ const allmembercolumn = [
     key: "email",
     label: "Email",
   },
-  {
-    key: "country",
-    label: "Country",
-  },
-  {
-    key: `lastLogin`,
-    label: "Recent log in",
-  },
+   
   {
     key: "date",
     label: "Joint At",
   },
   {
-    key: "isBlocked",
+    key: "isApproved",
     label: "Status",
   },
   {

@@ -140,8 +140,8 @@ API.createuser = (data) => {
   return API.post("user/by-admin", data);
 };
 
-API.updateUser = (data) => {
-  return API.patch(`user/by-admin`, data);
+API.updateUser = (id, data) => {
+  return API.patch(`user/by-admin/${id}`, data);
 };
 
 //adming
