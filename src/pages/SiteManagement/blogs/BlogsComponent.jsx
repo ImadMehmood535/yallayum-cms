@@ -17,7 +17,7 @@ const BlogsComponent = () => {
   const getData = async () => {
     try {
       const response = await API.getAllBlogs();
-      setAllBlogs(response?.data?.data);
+      setAllBlogs(response?.data?.data?.blogs);
       setLoading(false);
     } catch (error) {
       setLoading(false);

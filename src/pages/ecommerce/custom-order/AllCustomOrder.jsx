@@ -35,7 +35,7 @@ const AllCustomOrder = () => {
         pagetitle={"Custom Orders"}
         previous={"Dashboard"}
         currentpage={"Custom Orders"}
-        btnlink={"/dashboard/store/categories/add-category"}
+        btnlink={"edit"}
       />
       <div className="page-comp bg-white mt-10 rounded-xl px-8 py-8">
         <ResultFilterBar

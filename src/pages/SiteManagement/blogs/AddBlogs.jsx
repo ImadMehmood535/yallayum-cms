@@ -7,19 +7,16 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../../api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { errorToast, successToast } from "../../../hooks/useToast";
-import { AddExamCategory } from "../../../validations/categories";
 import Editor from "../../../components/general/Editor";
 import { addBlogsSchema } from "../../../validations/blogs";
 import { Button } from "@nextui-org/react";
 import { generateSlug } from "../../../utils/slug";
-import ImageUpload from "../../../components/general/ImageUpload";
+import GeneralImageUpload from "../../../components/general/GeneralImageUpload";
 
 const AddBlogs = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [imageError, setImageError] = useState(null);
 
   const {
     register,
@@ -30,11 +27,6 @@ const AddBlogs = () => {
   } = useForm({ resolver: yupResolver(addBlogsSchema) });
 
   const onSubmit = async (data) => {
-    if (!image) {
-      setImageError("Please Upload An image");
-    } else {
-      setImageError(null);
-    }
     try {
       const formdata = new FormData();
       formdata.append("image", image);
@@ -66,18 +58,6 @@ const AddBlogs = () => {
     setValue("slug", generateSlug(title));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(file);
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <div className="page-area mt-10">
       <Header
@@ -97,27 +77,8 @@ const AddBlogs = () => {
               register={register}
             />
           </div>
-          <div className="grid grid-col-1   gap-4  mt-8 mb-4">
-            <ImageUpload
-              handleImageChange={handleImageChange}
-              preview={preview}
-              register={register}
-              errors={errors}
-            />
-            {imageError && (
-              <p className="text-tiny text-danger pl-3 mt-1">{imageError}</p>
-            )}
-          </div>
-          <div className="grid grid-col-1   gap-4  mt-8 mb-4">
-            <Editor
-              label="Short Discription"
-              errors={errors}
-              name="short_description"
-              register={register}
-              setValue={setValue}
-            />
-          </div>
-          <div className="grid grid-col-1 sm:grid-cols-2  grid-blog gap-4    mb-4">
+
+          <div className="grid grid-col-1 sm:grid-cols-2  gap-4    mb-4">
             <InputField
               label="Slug"
               type="text"
@@ -134,6 +95,27 @@ const AddBlogs = () => {
               Generate
             </Button>
           </div>
+          <div className="grid grid-col-1   gap-4  mt-8 mb-4">
+            <GeneralImageUpload
+              heading={"Upload Image"}
+              image={image}
+              setImage={setImage}
+              name="imageUrl"
+              errors={errors}
+              register={register}
+              setValue={setValue}
+            />
+          </div>
+          <div className="grid grid-col-1   gap-4  mt-8 mb-4">
+            <Editor
+              label="Short Discription"
+              errors={errors}
+              name="short_description"
+              register={register}
+              setValue={setValue}
+            />
+          </div>
+
           <div className="grid grid-col-1   gap-4  mt-8 mb-4">
             <Editor
               label="Description"

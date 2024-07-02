@@ -263,12 +263,24 @@ API.getAllOrders = () => {
 API.getSingleOrder = (id) => {
   return API.get(`/order/${id}`);
 };
-   
+
+API.orderUpdateStatus = (id, data) => {
+  return API.patch(`/order/${id}`, data);
+};
+
 //custom order
 
 API.getAllCustomOrders = () => {
-  return API.get("/custom-order")
-}
+  return API.get("/custom-order");
+};
+
+API.getSingleCustomOrder = (id) => {
+  return API.get(`/custom-order/${id}`);
+};
+
+API.updateCustomOrder = (id, data) => {
+  return API.patch(`/custom-order/${id}`, data);
+};
 
 //statistics
 

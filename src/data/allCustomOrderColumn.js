@@ -8,6 +8,10 @@ const allCustomOrderColumn = [
     label: "Amount",
   },
   {
+    key: "name",
+    label: "Order No.",
+  },
+  {
     key: "userName",
     label: "Name",
   },
@@ -20,8 +24,8 @@ const allCustomOrderColumn = [
     label: "Email",
   },
   {
-    key: "orderItems",
-    label: "Total Items",
+    key: "flavors",
+    label: "Flavors",
   },
   {
     key: "orderStatus",

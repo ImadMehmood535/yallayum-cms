@@ -4,16 +4,17 @@ const blogsColumn = [
     label: "SN.",
   },
   {
+    key: "imageUrl",
+    label: "Image",
+  },
+  {
     key: "name",
     label: "Title",
   },
-  {
-    key: "shortDescription",
-    label: "Short Discription",
-  },
+
   {
     key: "date",
-    label: "Created At",
+    label: "Date",
   },
 
   {

@@ -171,6 +171,24 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "management",
+        children: [
+          {
+            path: "blogs",
+            children: [
+              {
+                path: "",
+                element: <BlogsComponent />,
+              },
+              {
+                path: "add",
+                element: <AddBlogs />,
+              },
+            ],
+          },
+        ],
+      },
+      {
         path: "",
         element: <Indexdashboard />,
       },

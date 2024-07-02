@@ -7,9 +7,9 @@ const GeneralImageUpload = ({
   name,
   errors,
   register,
-  defaultImage
+  defaultImage,
+  setValue,
 }) => {
-  
   const [singleFile, setSingleFile] = useState(null);
 
   useEffect(() => {
@@ -18,12 +18,9 @@ const GeneralImageUpload = ({
         typeof image === "string" ? image : URL.createObjectURL(image);
       setSingleFile(url);
     } else {
-      setSingleFile(defaultImage)
+      setSingleFile(defaultImage);
     }
-  }, [image , defaultImage]);
-
-
- 
+  }, [image, defaultImage]);
 
   const uploadSingleFile = (e) => {
     const file = e.target.files[0];
@@ -31,12 +28,14 @@ const GeneralImageUpload = ({
       setImage(file);
       const url = URL.createObjectURL(file);
       setSingleFile(url);
+      setValue(name, file);
     }
   };
 
   const removeImage = () => {
     setImage(null);
     setSingleFile(null);
+    setValue(name, null);
   };
 
   return (
@@ -69,7 +68,6 @@ const GeneralImageUpload = ({
                       ref={register(name)}
                       name={name}
                       onChange={uploadSingleFile}
-                       
                     />
                   </div>
                 </div>
