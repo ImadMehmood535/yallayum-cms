@@ -263,6 +263,12 @@ API.getAllOrders = () => {
 API.getSingleOrder = (id) => {
   return API.get(`/order/${id}`);
 };
+   
+//custom order
+
+API.getAllCustomOrders = () => {
+  return API.get("/custom-order")
+}
 
 //statistics
 

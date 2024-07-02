@@ -121,7 +121,9 @@ button.popup-btn {
   top: 0;
   opacity: 0;
 }
-
+.error-group .field-container .group-data-\[has-helper\=true\]\:flex {
+  padding: 0;
+}
 /* .remove_img {
   background-color: bisque;
   border-radius: 69%;

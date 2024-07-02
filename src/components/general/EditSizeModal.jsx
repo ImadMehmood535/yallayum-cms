@@ -43,6 +43,7 @@ const EditSizeModal = ({ btntitle, title }) => {
       });
       successToast(response?.data?.message);
       setLoading(false);
+      //onClose();
     } catch (error) {
       setLoading(false);
       errorToast(error, "Can not update size data");
@@ -78,8 +79,8 @@ const EditSizeModal = ({ btntitle, title }) => {
                 )}
                 key={item.id}
               >
-                <div className="flex justify-start gap-12 items-end w-full">
-                  <div className="!py-0">
+                <div className="error-group grid grid-cols-3 justify-start gap-4 items-end w-full">
+                  <div className="!py-0 col-span-2">
                     <InputField
                       label="Packet Size"
                       type="number"
@@ -95,7 +96,7 @@ const EditSizeModal = ({ btntitle, title }) => {
                   <Button
                     type="submit"
                     isLoading={loading}
-                    className="bg-themePrimary-0 mb-4 text-white shadow-lg shadow-indigo-500/20"
+                    className="h-[46px] text-white shadow-lg bg-themeBtn-0 hover:bg-black"
                   >
                     Update
                   </Button>
