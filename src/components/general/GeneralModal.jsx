@@ -58,12 +58,12 @@ const GeneralModal = ({
             <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
             <ModalBody>
               <div className="error-group grid grid-cols-1 justify-start gap-4 items-end w-full">
-                {names.map((name) => (
+                {names?.map((name) => (
                   <div key={name} className="w-full">
                     <InputField
-                      label={name.charAt(0).toUpperCase() + name.slice(1)}
+                      label={name?.charAt(0).toUpperCase() + name?.slice(1)}
                       type={name === "paragh" ? "textarea" : "text"}
-                      placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+                      placeholder={name?.charAt(0)?.toUpperCase() + name?.slice(1)}
                       errors={errors}
                       defaultValue={sectionData[name]}
                       name={name}

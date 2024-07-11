@@ -12,7 +12,7 @@ class MyCustomUploadAdapter {
         new Promise((resolve, reject) => {
           formData.append("image", file, file.name);
 
-          axios.post("https://backend.qbankmodel.com/api/upload", formData, {
+          axios.post("https://yalla.ctround.com/api/image", formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -22,7 +22,7 @@ class MyCustomUploadAdapter {
             //   console.log('Upload response:', data);  // Log the response for debugging
               if (data && data.data) {
                 resolve({
-                  default:` https://backend.qbankmodel.com${data.data}`,
+                  default:` https://yalla.ctround.com${data.data[0]}`,
                 });
               } else {
                 reject(`Couldn't upload file: ${file.name}. Server responded with: ${JSON.stringify(data)}`);

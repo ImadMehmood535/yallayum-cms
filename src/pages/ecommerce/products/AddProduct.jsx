@@ -13,6 +13,7 @@ import VariationInput from "../../../components/general/VariationInput";
 import CategoryDropdown from "./VariationDropdown";
 import IterateUpload from "./IterateUpload";
 import { productScehma } from "../../../validations/productValidations";
+import Tiptap from "../../../components/general/TipEditor";
 
 const AddProduct = () => {
   const [variationId, setVariationId] = useState(0);
@@ -152,7 +153,7 @@ const AddProduct = () => {
     setVariations(updatedVariations);
   };
 
-  console.log(errors , "errors")
+  console.log(errors, "errors");
 
   return (
     <div className="page-area mt-10">
@@ -180,13 +181,14 @@ const AddProduct = () => {
               name="slug"
               register={register}
             />
-            <InputField
+          </div>
+          <div className="grid grid-col-1  gap-4  mt-8 mb-4">
+            <Editor
               label="Short Description"
-              type="text"
-              placeholder="Enter short description of product"
               errors={errors}
               name="shortDescription"
               register={register}
+              setValue={setValue}
             />
           </div>
           <div className="grid grid-col-1  gap-4  mt-8 mb-4">

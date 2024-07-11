@@ -215,13 +215,15 @@ const EditProducts = () => {
                 register={register}
                 defaultValue={product?.slug}
               />
-              <InputField
+             
+            </div>
+            <div className="grid grid-col-1  gap-4  mt-8 mb-4">
+              <Editor
                 label="Short Description"
-                type="text"
-                placeholder="Enter short description of product"
                 errors={errors}
                 name="shortDescription"
                 register={register}
+                setValue={setValue}
                 defaultValue={product?.shortDescription}
               />
             </div>

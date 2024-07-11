@@ -77,17 +77,19 @@ const BlogsComponent = () => {
           <Loader />
         ) : (
           <>
-            <div className="mt-4">
-              <GeneralModal
-                sectionData={sectionData}
-                btntitle={"Edit Blog Section"}
-                title={"Edit Section"}
-                names={["head", "span", "paragh"]}
-                submitSection={submitSection}
-                loading={loadingSection}
-                validationSchema={blogSectionHeading}
-              />
-            </div>
+            {sectionData && (
+              <div className="mt-4">
+                <GeneralModal
+                  sectionData={sectionData}
+                  btntitle={"Edit Blog Section"}
+                  title={"Edit Section"}
+                  names={["head", "span", "paragh"]}
+                  submitSection={submitSection}
+                  loading={loadingSection}
+                  validationSchema={blogSectionHeading}
+                />
+              </div>
+            )}
             {allblogs && (
               <Tableform
                 filterdata={allblogs}
