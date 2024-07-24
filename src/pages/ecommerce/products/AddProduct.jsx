@@ -22,8 +22,8 @@ const AddProduct = () => {
     {
       id: variationId,
       categoryId: "",
-      price: "",
-      salePrice: "",
+      price: null,
+      salePrice: null,
       weight: "",
       imageUrl: "",
       gallery: [],
@@ -247,18 +247,18 @@ const AddProduct = () => {
                 <VariationInput
                   type={"number"}
                   placeholder={"Enter sale price of your product"}
-                  value={variation.salePrice}
+                  value={variation.price}
                   handleInputChange={handleInputChange}
-                  name={"salePrice"}
+                  name={"price"}
                   index={index}
                   label={"Price"}
                 />
                 <VariationInput
                   type={"number"}
                   placeholder={"Enter price of your product"}
-                  value={variation.price}
+                  value={variation.salePrice}
                   handleInputChange={handleInputChange}
-                  name={"price"}
+                  name={"salePrice"}
                   index={index}
                   label={"Sale Price"}
                 />
