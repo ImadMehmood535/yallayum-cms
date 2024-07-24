@@ -23,10 +23,10 @@ const OrderItem = ({ item }) => (
       </div>
     </div>
     <div>
-      <p className="text-white text-lg font-semibold">Price : ${item?.price}</p>
+      <p className="text-white text-lg font-semibold">Price :  AED{item?.price}</p>
       {item?.subTotal && (
         <p className="text-white text-lg font-semibold">
-          SubTotal: ${item?.subTotal}
+          SubTotal: AED{item?.subTotal}
         </p>
       )}
     </div>

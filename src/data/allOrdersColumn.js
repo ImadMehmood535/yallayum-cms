@@ -4,7 +4,7 @@ const orderColumn = [
     label: "SN.",
   },
   {
-    key: "totalPrice",
+    key: "totalAndDelivery",
     label: "Amount",
   },
   {

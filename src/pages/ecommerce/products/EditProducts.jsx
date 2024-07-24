@@ -14,6 +14,7 @@ import CategoryDropdown from "./VariationDropdown";
 import { useQuery } from "../../../hooks/queryParam";
 import IterateUpdate from "./IterateUpdate";
 import { productScehma } from "../../../validations/productValidations";
+import UploadVideo from "./UploadVideo";
 
 const EditProducts = () => {
   let query = useQuery();
@@ -85,6 +86,8 @@ const EditProducts = () => {
     getData();
   }, []);
 
+  const [video, setVideo] = useState(product?.videoUrl);
+
   const onSubmit = async (data) => {
     setLoading(true);
     try {
@@ -94,10 +97,10 @@ const EditProducts = () => {
 
           if (
             typeof updatedVariation.imageUrl === "string" &&
-            updatedVariation.imageUrl.includes("/assets")
+            updatedVariation.imageUrl.includes("https")
           ) {
             updatedVariation.imageUrl = updatedVariation.imageUrl.substring(
-              updatedVariation.imageUrl.indexOf("/assets")
+              updatedVariation.imageUrl.indexOf("https")
             );
           } else if (updatedVariation.imageUrl[0] instanceof File) {
             let formData = new FormData();
@@ -108,8 +111,8 @@ const EditProducts = () => {
           }
           const updatedGallery = [];
           for (const image of updatedVariation.gallery) {
-            if (typeof image === "string" && image.includes("/assets")) {
-              updatedGallery.push(image.substring(image.indexOf("/assets")));
+            if (typeof image === "string" && image.includes("https")) {
+              updatedGallery.push(image.substring(image.indexOf("https")));
             } else if (image instanceof File) {
               let formData = new FormData();
               formData.append("images", image);
@@ -128,10 +131,32 @@ const EditProducts = () => {
         })
       );
 
-      const payload = {
-        ...data,
-        productVariation: updatedVariations,
-      };
+      let videoUrl;
+
+      if (video) {
+        const formDataVideo = new FormData();
+        formDataVideo.append("video", video);
+
+        const response = await API.uploadVideo(formDataVideo);
+
+        videoUrl = response?.data?.data;
+      }
+
+      let payload;
+
+      if (videoUrl) {
+        payload = {
+          ...data,
+          videoUrl: videoUrl,
+          productVariation: updatedVariations,
+        };
+      } else {
+        payload = {
+          ...data,
+          videoUrl: product?.videoUrl,
+          productVariation: updatedVariations,
+        };
+      }
 
       const response = await API.updateProduct(id, payload);
       setLoading(false);
@@ -215,7 +240,6 @@ const EditProducts = () => {
                 register={register}
                 defaultValue={product?.slug}
               />
-             
             </div>
             <div className="grid grid-col-1  gap-4  mt-8 mb-4">
               <Editor
@@ -247,6 +271,8 @@ const EditProducts = () => {
                 defaultValue={product?.ingredients}
               />
             </div>
+
+            <UploadVideo setVideo={setVideo} videoUrl={product?.videoUrl} />
 
             {variations && (
               <>

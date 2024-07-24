@@ -116,10 +116,22 @@ const EditCustomOrder = () => {
           </div>
         )}
 
+<div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl w-full py-6 px-8 shadow-lg mt-6">
+          <p className="text-white text-xl font-semibold">Sub Total Price</p>
+          <p className="text-white text-3xl font-bold mt-2">
+          AED  {orderData?.totalPrice}
+          </p>
+        </div>
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl w-full py-6 px-8 shadow-lg mt-6">
+          <p className="text-white text-xl font-semibold">Delivery</p>
+          <p className="text-white text-3xl font-bold mt-2">
+          AED  {orderData?.deliveryCharges}
+          </p>
+        </div>
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl w-full py-6 px-8 shadow-lg mt-6">
           <p className="text-white text-xl font-semibold">Total Price</p>
           <p className="text-white text-3xl font-bold mt-2">
-            {orderData?.totalPrice}
+          AED   {orderData?.totalAndDelivery}
           </p>
         </div>
         <SelectList

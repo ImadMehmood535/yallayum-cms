@@ -14,6 +14,7 @@ import CategoryDropdown from "./VariationDropdown";
 import IterateUpload from "./IterateUpload";
 import { productScehma } from "../../../validations/productValidations";
 import Tiptap from "../../../components/general/TipEditor";
+import UploadVideo from "./UploadVideo";
 
 const AddProduct = () => {
   const [variationId, setVariationId] = useState(0);
@@ -56,6 +57,8 @@ const AddProduct = () => {
   useEffect(() => {
     getCategories();
   }, []);
+
+  const [video, setVideo] = useState(null);
   const onSubmit = async (data) => {
     setLoading(true);
     try {
@@ -96,10 +99,32 @@ const AddProduct = () => {
         })
       );
 
-      const payload = {
-        ...data,
-        productVariation: updatedVariations,
-      };
+      let videoUrl;
+
+      if (video) {
+        const formDataVideo = new FormData();
+        formDataVideo.append("video", video);
+
+        const response = await API.uploadVideo(formDataVideo);
+
+        videoUrl = response?.data?.data;
+      }
+
+      let payload;
+
+      if (videoUrl) {
+        payload = {
+          ...data,
+          videoUrl: videoUrl,
+          productVariation: updatedVariations,
+        };
+      } else {
+        payload = {
+          ...data,
+          videoUrl: videoUrl,
+          productVariation: updatedVariations,
+        };
+      }
 
       const response = await API.uploadProduct(payload);
       setLoading(false);
@@ -153,7 +178,7 @@ const AddProduct = () => {
     setVariations(updatedVariations);
   };
 
-  console.log(errors, "errors");
+  console.log(video, "setVideo");
 
   return (
     <div className="page-area mt-10">
@@ -208,6 +233,9 @@ const AddProduct = () => {
               register={register}
               setValue={setValue}
             />
+          </div>
+          <div className="grid grid-col-1  gap-4  mt-8 mb-4">
+            <UploadVideo setVideo={setVideo} />
           </div>
 
           {variations.map((variation, index) => (

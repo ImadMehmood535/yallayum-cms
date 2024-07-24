@@ -135,7 +135,7 @@ API.updateRecipe = (id, data) => {
   return API.patch(`recipe/${id}`, data);
 };
 
-API.deleteRecipe= (id) => {
+API.deleteRecipe = (id) => {
   return API.delete(`recipe/${id}`);
 };
 
@@ -290,6 +290,10 @@ API.getAllNewsletter = () => {
 
 API.uploadImages = (data) => {
   return API.post("/image", data);
+};
+
+API.uploadVideo = (data) => {
+  return API.post("/video", data);
 };
 
 //order

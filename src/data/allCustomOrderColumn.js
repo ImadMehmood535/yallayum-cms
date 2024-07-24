@@ -4,7 +4,7 @@ const allCustomOrderColumn = [
     label: "SN.",
   },
   {
-    key: "totalPrice",
+    key: "totalAndDelivery",
     label: "Amount",
   },
   {
