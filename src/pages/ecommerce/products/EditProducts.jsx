@@ -153,7 +153,7 @@ const EditProducts = () => {
       } else {
         payload = {
           ...data,
-          videoUrl: product?.videoUrl,
+          videoUrl: product?.videoUrl || null,
           productVariation: updatedVariations,
         };
       }

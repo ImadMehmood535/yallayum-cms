@@ -121,7 +121,6 @@ const AddProduct = () => {
       } else {
         payload = {
           ...data,
-          videoUrl: videoUrl,
           productVariation: updatedVariations,
         };
       }
