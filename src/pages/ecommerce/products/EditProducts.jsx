@@ -15,6 +15,7 @@ import { useQuery } from "../../../hooks/queryParam";
 import IterateUpdate from "./IterateUpdate";
 import { productScehma } from "../../../validations/productValidations";
 import UploadVideo from "./UploadVideo";
+import IngredientsInput from "../../../components/general/IngredientsInput";
 
 const EditProducts = () => {
   let query = useQuery();
@@ -32,6 +33,16 @@ const EditProducts = () => {
       gallery: [],
     },
   ]);
+
+  const [ingredientsData, setIngredientsData] = useState([
+    {
+      id: "",
+      imageUrl: "",
+      head: "",
+      paragh: "",
+    },
+  ]);
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -77,6 +88,7 @@ const EditProducts = () => {
       response = await API.getSingleProduct(id);
       setProduct(response?.data?.data);
       setVariations(response?.data?.data?.productVariation);
+      setIngredientsData(response?.data?.data?.ingredientsData);
     } catch (error) {
       errorToast(error, "Can not fetch categories");
     }
@@ -131,6 +143,29 @@ const EditProducts = () => {
         })
       );
 
+      const updatedIngredientsData = await Promise.all(
+        ingredientsData.map(async (variation) => {
+          let updatedVariation = { ...variation };
+
+          if (
+            typeof updatedVariation.imageUrl === "string" &&
+            updatedVariation.imageUrl.includes("https")
+          ) {
+            updatedVariation.imageUrl = updatedVariation.imageUrl.substring(
+              updatedVariation.imageUrl.indexOf("https")
+            );
+          } else if (updatedVariation.imageUrl[0] instanceof File) {
+            let formData = new FormData();
+            formData.append("images", updatedVariation.imageUrl[0]);
+            const response = await API.uploadImages(formData);
+            const uploadedUrl = response?.data?.data[0];
+            updatedVariation.imageUrl = uploadedUrl;
+          }
+
+          return updatedVariation;
+        })
+      );
+
       let videoUrl;
 
       if (video) {
@@ -149,12 +184,14 @@ const EditProducts = () => {
           ...data,
           videoUrl: videoUrl,
           productVariation: updatedVariations,
+          ingredientsData: updatedIngredientsData,
         };
       } else {
         payload = {
           ...data,
           videoUrl: product?.videoUrl || null,
           productVariation: updatedVariations,
+          ingredientsData: updatedIngredientsData,
         };
       }
 
@@ -187,12 +224,29 @@ const EditProducts = () => {
       },
     ]);
   };
+  const handleAddingredeintsData = () => {
+    setIngredientsData((prevVariations) => [
+      ...prevVariations,
+      {
+        id: "",
+        imageUrl: "",
+        head: "",
+        paragh: "",
+      },
+    ]);
+  };
 
   const handleRemoveVariation = (id) => {
     const updatedVariations = variations.filter(
       (variation) => variation.id !== id
     );
     setVariations(updatedVariations);
+  };
+  const handleRemoveIngredients = (id) => {
+    const updatedVariations = ingredientsData.filter(
+      (variation) => variation.id !== id
+    );
+    setIngredientsData(updatedVariations);
   };
 
   const handleCategoryChange = (event, index) => {
@@ -206,6 +260,11 @@ const EditProducts = () => {
     const updatedVariations = [...variations];
     updatedVariations[index][field] = value;
     setVariations(updatedVariations);
+  };
+  const handleInputChangeIngredients = (index, field, value) => {
+    const updatedVariations = [...ingredientsData];
+    updatedVariations[index][field] = value;
+    setIngredientsData(updatedVariations);
   };
 
   return (
@@ -270,6 +329,80 @@ const EditProducts = () => {
                 setValue={setValue}
                 defaultValue={product?.ingredients}
               />
+            </div>
+
+
+            <h2 className="text-2xl font-bold py-4">Ingredients List </h2>
+
+
+            {ingredientsData && (
+              <>
+                {ingredientsData.map((variation, index) => (
+                  <div
+                    key={`variation-${variation.id}`}
+                    className="w-full  p-6 rounded-[20px] bg-[#FAF1DC]/40  flex flex-wrap flex-col gap-6 mb-4"
+                  >
+                     
+                    
+                    <div className="w-full">
+                      <IterateUpdate
+                        heading={"Image"}
+                        isSingle={true}
+                        initialImages={
+                          variation.imageUrl ? [variation.imageUrl] : []
+                        }
+                        onImagesChange={(newImages) =>
+                          handleInputChangeIngredients(index, "imageUrl", newImages)
+                        }
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                      <IngredientsInput
+                        type={"text"}
+                        placeholder={"Enter Heading"}
+                        value={variation.head}
+                        handleInputChangeIngredients={handleInputChangeIngredients}
+                        name={"head"}
+                        index={index}
+                        label={"Heading"}
+                      />
+                      <IngredientsInput
+                        type={"text"}
+                        placeholder={"Enter paragh"}
+                        value={variation.paragh}
+                        handleInputChangeIngredients={handleInputChangeIngredients}
+                        name={"paragh"}
+                        index={index}
+                        label={"Paragraph"}
+                      />
+                    </div>
+                  
+
+                    {index !== 0 && (
+                      <Button
+                        type="button"
+                        className="bg-red-500 text-white px-4 py-2 rounded w-fit float-right"
+                        onClick={() => handleRemoveIngredients(variation.id)}
+                      >
+                        Remove List
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </>
+            )}
+
+            <div className="grid grid-col-1 gap-4 mt-8 mb-4">
+              <div className="flex justify-start items-center gap-4">
+                <p>Add List</p>
+                <div
+                  className="w-8 h-8 cursor-pointer hover:bg-themePrimary-0 transition-all rounded-full bg-themeBtn-0 flex justify-center items-center"
+                  onClick={handleAddingredeintsData}
+                >
+                  <p className="text-2xl mb-[4px] text-white">+</p>
+                </div>
+              </div>
             </div>
 
             <UploadVideo setVideo={setVideo} videoUrl={product?.videoUrl} />
